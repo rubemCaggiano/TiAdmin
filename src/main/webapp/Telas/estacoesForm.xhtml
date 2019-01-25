@@ -17,8 +17,33 @@
 
     <ui:define name="body">
         <h:form id="formEstacao">
+            <h:panelGrid columns="2">
+
+                <p:outputLabel for="ip" value="Endereço IP"/>
+                <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" mask="999.999.999.999"/>
+
+                <p:outputLabel for="mac" value="Endereço MAC"/>
+                <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" mask="**:**:**:**:**:**"/>
+
+                <p:outputLabel for="nome" value="Nome da Maquina"/>
+                <p:inputText id="nome" value="#{estacaoMB.estacao.nome}"/>
+
+                <p:outputLabel for="observacao" value="Observações"/>
+                <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}"/>
+
+                <p:outputLabel for="advanced" value="Advanced:" />
+                
+                <p:selectOneMenu id="advanced" value="#{estacaoMB.estacao.usuario}"  var="u" filter="true" filterMatchMode="startsWith">
+                    <f:selectItems value="#{estacaoMB.usuarios}" var="u" itemLabel="#{u.nome}" itemValue="#{u}" />
+
+                    <p:column>
+                        <h:outputText value="#{u.nome}" />
+                    </p:column>
+                </p:selectOneMenu>
 
 
+
+            </h:panelGrid>
 
 
         </h:form>

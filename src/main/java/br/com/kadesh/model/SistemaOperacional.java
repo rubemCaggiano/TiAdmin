@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class SistemaOperacional implements Serializable {
@@ -12,7 +13,8 @@ public class SistemaOperacional implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_so")
+    @SequenceGenerator(name = "seq_so", sequenceName = "seq_so", initialValue = 1000)
     private int id;
 
     private String versao;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Servico implements Serializable {
@@ -13,7 +14,8 @@ public class Servico implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_servico")
+    @SequenceGenerator(name = "seq_servico", sequenceName = "seq_servico", initialValue = 1000)
     private int id;
 
     private String servico;
