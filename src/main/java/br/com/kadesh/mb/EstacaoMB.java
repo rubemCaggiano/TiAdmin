@@ -26,6 +26,7 @@ public class EstacaoMB implements Serializable {
     private List<Usuario> usuarios = new ArrayList<>();
 
     private Estacao estacao = new Estacao();
+    private Estacao estacaoSelecionada = new Estacao();
     private Usuario usuario = new Usuario();
 
     @PostConstruct
@@ -74,6 +75,14 @@ public class EstacaoMB implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Estacao getEstacaoSelecionada() {
+        return estacaoSelecionada;
+    }
+
+    public void setEstacaoSelecionada(Estacao estacaoSelecionada) {
+        this.estacaoSelecionada = estacaoSelecionada;
     }
 
 }

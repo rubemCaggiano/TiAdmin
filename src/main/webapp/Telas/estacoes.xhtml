@@ -16,50 +16,87 @@
     </ui:define>
 
     <ui:define name="body">
+        <h:form>
+            <div class="box box-primary">
+                <div class="box-header with-border">
 
-        <p:dataTable   id="tabelaApontamento" widgetVar="tabelaApontamento" var="a" value="#{apontamentoMB.apontamentos}"
-                       rows="5"
-                       rowKey="#{a.id}" lazy="true" paginator="true"
-                       paginatorPosition="bottom" 
-                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
-                       currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
-                       rowsPerPageTemplate="5,10,15,20,30"
-                       >
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:commandButton action="/car-form?faces-redirect=true" icon="fa fa-plus"
+                                         value="Novo" styleClass="btn-primary"/>
 
-            <p:column headerText="Apontamento"
-                      filterBy="#{a.numero}"
-                      sortBy="#{a.numero}" filterMatchMode="contains">
-                <h:link value="#{a.numero}" outcome="cadastro-tarefa.xhtml">
-                    <f:param name="id" value="#{a.id}"/>	                        	
-                </h:link>	                        
-            </p:column>
-            
-            <p:column headerText="Situação">
-                <h:outputLabel value="#{a.situacao.situacao}" />
-            </p:column>
+                        <p:spacer width="5"/>
 
-            <p:column headerText="Armazem Consumo">
-                <h:outputLabel value="#{a.armazemConsumo.descricao}" />
-            </p:column>
-            
-            <p:column headerText="Armazem Destino">
-                <h:outputLabel value="#{a.armazemDestino.descricao}" />
-            </p:column>
+                        <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                         action="#{carListMB.delete}"
+                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
+                                         process="@this" update="@form"
+                                         >
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                        </p:commandButton>
 
-            <p:column headerText="Data da Inserção">
-                <h:outputLabel value="#{a.data}" />
-            </p:column>
-            
-            <p:column headerText="Setor">
-                <h:outputLabel value="#{a.setor.setor}" />
-            </p:column>
-            
-            <p:column headerText="Observação">
-                <h:outputLabel value="#{a.observacao}" />
-            </p:column>
+                        <p:spacer width="5"/>
 
-        </p:dataTable>
+                        <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
+                                         oncomplete="PF('selectedCars').show()" icon="fa fa-search"/>
+                    </div>
 
+                    <p:dataTable   id="tblEstacoes" widgetVar="tblEstacoes" var="e" value="#{estacaoMB.estacoes}"
+                                   rows="20"
+                                   selectionMode="single" selection="#{estacaoMB.estacaoSelecionada}"
+                                   rowKey="#{e.id}" lazy="true" paginator="true"
+                                   paginatorPosition="bottom" 
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                   currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                   rowsPerPageTemplate="5,10,15,20,30"
+                                   >
+
+                        <p:column headerText="Estação" filterBy="#{e.nome}" sortBy="#{e.nome}" filterMatchMode="contains">
+                            <h:link value="#{e.nome}" outcome="cadastro-tarefa.xhtml">
+                                <f:param name="id" value="#{e.id}"/>	                        	
+                            </h:link>	                        
+                        </p:column>
+
+                        <p:column headerText="Utilizador" filterBy="#{e.usuario.nome}" sortBy="#{e.usuario.nome}" filterMatchMode="contains">
+                            <h:outputLabel value="#{e.usuario.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Usuario AD" filterBy="#{e.usuario.usuarioAd}" sortBy="#{e.usuario.usuarioAd}" filterMatchMode="contains">
+                            <h:outputLabel value="#{e.usuario.usuarioAd}" />
+                        </p:column>
+
+                        <p:column headerText="Setor" filterBy="#{e.setor.setor}" sortBy="#{e.setor.setor}" filterMatchMode="contains">
+                            <h:outputLabel value="#{e.setor.setor}" />
+                        </p:column>
+
+                        <p:column headerText="MAC Address" filterBy="#{e.mac}" sortBy="#{e.mac}" filterMatchMode="contains">
+                            <h:outputLabel value="#{e.mac}" />
+                        </p:column>
+
+                        <p:column headerText="S.O" filterBy="#{e.so.versao}" sortBy="#{e.so.versao}" filterMatchMode="contains">
+                            <h:outputLabel value="#{e.so.versao}" />
+                        </p:column>
+
+                        <p:column headerText="Dominio">
+                            <h:outputLabel value="#{e.dominio}" />
+                        </p:column>
+
+                        <p:column headerText="Cadastrado em">
+                            <h:outputLabel value="#{e.dataCadastro}" />
+                        </p:column>
+
+                        <p:column headerText="Alterado em">
+                            <h:outputLabel value="#{e.dataAlteracao}" />
+                        </p:column>
+
+                        <p:column headerText="Observação">
+                            <h:outputLabel value="#{e.observacao}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
 
     </ui:define>
 
