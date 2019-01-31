@@ -18,11 +18,12 @@ import javax.inject.Inject;
  *
  * This is just a login example.
  *
- * AdminSession uses isLoggedIn to determine if user must be redirect to login page or not.
- * By default AdminSession isLoggedIn always resolves to true so it will not try to redirect user.
+ * AdminSession uses isLoggedIn to determine if user must be redirect to login
+ * page or not. By default AdminSession isLoggedIn always resolves to true so it
+ * will not try to redirect user.
  *
- * If you already have your authorization mechanism which controls when user must be redirect to initial page or logon
- * you can skip this class.
+ * If you already have your authorization mechanism which controls when user
+ * must be redirect to initial page or logon you can skip this class.
  */
 @Named
 @SessionScoped
@@ -36,11 +37,12 @@ public class LogonMB extends AdminSession implements Serializable {
     @Inject
     private AdminConfig adminConfig;
 
-
     public void login() throws IOException {
         currentUser = email;
-        addDetailMessage("Logged in successfully as <b>" + email + "</b>");
-        Faces.getExternalContext().getFlash().setKeepMessages(true);
+
+//        Mensagem de bem vindo
+//        addDetailMessage("Logged in successfully as <b>" + email + "</b>");
+//        Faces.getExternalContext().getFlash().setKeepMessages(true);
         Faces.redirect(adminConfig.getIndexPage());
     }
 

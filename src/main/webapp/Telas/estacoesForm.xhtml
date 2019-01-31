@@ -17,34 +17,58 @@
 
     <ui:define name="body">
         <h:form id="formEstacao">
-            <h:panelGrid columns="2">
 
-                <p:outputLabel for="ip" value="Endereço IP"/>
-                <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" mask="999.999.999.999"/>
+            <div class="box box-primary">
+                <div class="box-header with-border">
 
-                <p:outputLabel for="mac" value="Endereço MAC"/>
-                <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" mask="**:**:**:**:**:**"/>
+                    <div class="ui-g ui-fluid">
 
-                <p:outputLabel for="nome" value="Nome da Maquina"/>
-                <p:inputText id="nome" value="#{estacaoMB.estacao.nome}"/>
+                        <div class="ui-g-6 ui-sm-12">
+                            <div class="ui-material">
+                                <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" required="true" placeholder="Material placeholder" mask="999.999.999.999"/>
+                                <p:outputLabel for="ip" value="Endereço IP"/>
+                                <p:message for="ip"/>
+                            </div>
+                        </div>
 
-                <p:outputLabel for="observacao" value="Observações"/>
-                <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}"/>
+                        <div class="ui-g-6 ui-sm-12">
+                            <div class="ui-material">
+                                <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" required="true" placeholder="Material placeholder" mask="**:**:**:**:**:**"/>
+                                <p:outputLabel for="mac" value="Endereço MAC"/>
+                                <p:message for="mac"/>
+                            </div>
+                        </div>
 
-                <p:outputLabel for="advanced" value="Advanced:" />
-                
-                <p:selectOneMenu id="advanced" value="#{estacaoMB.estacao.usuario}"  var="u" filter="true" filterMatchMode="startsWith">
-                    <f:selectItems value="#{estacaoMB.usuarios}" var="u" itemLabel="#{u.nome}" itemValue="#{u}" />
+                        <div class="ui-g-6 ui-sm-12">
+                            <div class="ui-material">
+                                <p:inputText id="nome" value="#{estacaoMB.estacao.nome}" required="true" placeholder="Material placeholder"/>
+                                <p:outputLabel for="nome" value="Nome da Maquina"/>
+                                <p:message for="nome"/>
+                            </div>
+                        </div>
 
-                    <p:column>
-                        <h:outputText value="#{u.nome}" />
-                    </p:column>
-                </p:selectOneMenu>
+                        <div class="ui-g-6 ui-sm-12">
+                            <div class="ui-material">
+                                <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}" required="true" placeholder="Material placeholder"/>
+                                <p:outputLabel for="observacao" value="Observações"/>
+                                <p:message for="observacao"/>
+                            </div>
+                        </div>
 
+                        <p:outputLabel for="advanced" value="Advanced:" />
 
+                        <p:selectOneMenu id="advanced" value="#{estacaoMB.estacao.usuario}"  var="u" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{estacaoMB.usuarios}" var="u" itemLabel="#{u.nome}" itemValue="#{u}" />
 
-            </h:panelGrid>
+                            <p:column>
+                                <h:outputText value="#{u.nome}" />
+                            </p:column>
+                        </p:selectOneMenu>
 
+                    </div>
+
+                </div>
+            </div>
 
         </h:form>
 
