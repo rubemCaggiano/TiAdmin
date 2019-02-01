@@ -20,40 +20,21 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                 layout="grid" styleClass="ui-fluid card">
 
-                    <div class="ui-g ui-fluid">
+                        
+                        <p:outputLabel for="ip" value="Endereço IP"/>
+                        <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" mask="999.999.999.999"/>
 
-                        <div class="ui-g-6 ui-sm-12">
-                            <div class="ui-material">
-                                <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" required="true" placeholder="Material placeholder" mask="999.999.999.999"/>
-                                <p:outputLabel for="ip" value="Endereço IP"/>
-                                <p:message for="ip"/>
-                            </div>
-                        </div>
+                        <p:outputLabel for="mac" value="Endereço MAC"/>
+                        <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" mask="**:**:**:**:**:**"/>
 
-                        <div class="ui-g-6 ui-sm-12">
-                            <div class="ui-material">
-                                <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" required="true" placeholder="Material placeholder" mask="**:**:**:**:**:**"/>
-                                <p:outputLabel for="mac" value="Endereço MAC"/>
-                                <p:message for="mac"/>
-                            </div>
-                        </div>
+                        <p:outputLabel for="nome" value="Nome da Maquina"/>
+                        <p:inputText id="nome" value="#{estacaoMB.estacao.nome}"/>
 
-                        <div class="ui-g-6 ui-sm-12">
-                            <div class="ui-material">
-                                <p:inputText id="nome" value="#{estacaoMB.estacao.nome}" required="true" placeholder="Material placeholder"/>
-                                <p:outputLabel for="nome" value="Nome da Maquina"/>
-                                <p:message for="nome"/>
-                            </div>
-                        </div>
-
-                        <div class="ui-g-6 ui-sm-12">
-                            <div class="ui-material">
-                                <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}" required="true" placeholder="Material placeholder"/>
-                                <p:outputLabel for="observacao" value="Observações"/>
-                                <p:message for="observacao"/>
-                            </div>
-                        </div>
+                        <p:outputLabel for="observacao" value="Observações"/>
+                        <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}"/>
 
                         <p:outputLabel for="advanced" value="Advanced:" />
 
@@ -65,8 +46,9 @@
                             </p:column>
                         </p:selectOneMenu>
 
-                    </div>
 
+
+                    </p:panelGrid>
                 </div>
             </div>
 
