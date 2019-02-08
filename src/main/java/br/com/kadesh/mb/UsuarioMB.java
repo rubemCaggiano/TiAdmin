@@ -5,12 +5,14 @@ import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Cargo;
 import br.com.kadesh.model.Usuario;
 import static com.github.adminfaces.starter.util.Utils.addDetailMessage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.omnifaces.util.Faces;
 
 @ManagedBean
 @ViewScoped
@@ -25,6 +27,8 @@ public class UsuarioMB implements Serializable {
     private List<Cargo> cargos = new ArrayList<>();
 
     private Usuario usuario = new Usuario();
+    private Usuario usuarioSelecionado = new Usuario();
+
     private Cargo cargo = new Cargo();
 
     public void salvar() {
@@ -33,6 +37,20 @@ public class UsuarioMB implements Serializable {
         usuarioDao.salvar(usuario);
         msg = "Usuário " + usuario.getNome() + " Cadastrado com sucesso";
         usuario = new Usuario();
+        addDetailMessage(msg);
+    }
+
+    public void excluir() throws IOException {
+        String msg;
+        try {
+            usuarioDao.excluir(usuarioSelecionado);
+            msg = "Usuário " + usuarioSelecionado.getNome() + " Excluido com sucesso";
+            usuarios.remove(usuarioSelecionado);
+
+        } catch (Exception e) {
+            msg = "Falha ao excluir" + usuarioSelecionado.getNome();
+        }
+
         addDetailMessage(msg);
     }
 
@@ -90,6 +108,14 @@ public class UsuarioMB implements Serializable {
 
     public void setCargoDao(Dao<Cargo> cargoDao) {
         this.cargoDao = cargoDao;
+    }
+
+    public Usuario getUsuarioSelecionado() {
+        return usuarioSelecionado;
+    }
+
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
     }
 
 }
