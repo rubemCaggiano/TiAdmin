@@ -37,6 +37,7 @@ public class UsuarioMB implements Serializable {
         usuarioDao.salvar(usuario);
         msg = "Usuário " + usuario.getNome() + " Cadastrado com sucesso";
         usuario = new Usuario();
+        selectAll();
         addDetailMessage(msg);
     }
 
