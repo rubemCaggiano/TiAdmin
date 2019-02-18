@@ -27,6 +27,14 @@
 
                         <p:spacer width="5"/>
 
+                        <p:commandButton action="usuarioForm?faces-redirect=true" icon="fa fa-edit"
+                                         value="Editar" styleClass="btn-warning"
+                                         disabled="#{usuarioMB.usuarioSelecionado.id == 0}">
+                            <f:param name="id" value="#{usuarioMB.usuarioSelecionado.id}"/>
+                        </p:commandButton>
+
+                        <p:spacer width="5"/>
+
                         <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
                                          action="#{usuarioMB.excluir}"
                                          disabled="#{usuarioMB.usuarioSelecionado.id == 0}"
@@ -55,9 +63,11 @@
                         <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
 
                         <p:column headerText="Nome" filterBy="#{usuario.nome}" sortBy="#{usuario.nome}" filterMatchMode="contains">
-                            <h:link value="#{usuario.nome}" >
+
+                            <p:link value="#{usuario.nome}" outcome="usuarioForm" >
                                 <f:param name="id" value="#{usuario.id}"/>	                        	
-                            </h:link>	                        
+                            </p:link>	      
+
                         </p:column>
 
                         <p:column headerText="Usuario" filterBy="#{usuario.usuarioAd}" sortBy="#{usuario.usuarioAd}" filterMatchMode="contains">
@@ -69,6 +79,9 @@
                         </p:column>
                         <p:column headerText="Skype">
                             <h:outputLabel value="#{usuario.skype}" />
+                        </p:column>
+                        <p:column headerText="Cargo">
+                            <h:outputLabel value="#{usuario.cargo.cargo}" />
                         </p:column>
 
 

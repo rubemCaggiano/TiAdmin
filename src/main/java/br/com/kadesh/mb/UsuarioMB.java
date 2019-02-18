@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Faces;
+import static com.github.adminfaces.template.util.Assert.has;
 
 @ManagedBean
 @ViewScoped
@@ -26,10 +27,26 @@ public class UsuarioMB implements Serializable {
     private List<Usuario> usuarios = new ArrayList<>();
     private List<Cargo> cargos = new ArrayList<>();
 
-    private Usuario usuario = new Usuario();
+    private Usuario usuario;
+
     private Usuario usuarioSelecionado = new Usuario();
 
     private Cargo cargo = new Cargo();
+
+    private int id = 0;
+
+    public void init() {
+        if (Faces.isAjaxRequest()) {
+            return;
+        }
+//        if (has(id)) {
+            if (id != 0){
+            usuario = usuarioDao.buscarPorId(id);
+        }
+        else {
+//            usuario = new Usuario();
+        }
+    }
 
     public void salvar() {
         String msg;
@@ -41,6 +58,7 @@ public class UsuarioMB implements Serializable {
         addDetailMessage(msg);
     }
 
+   
     public void excluir() throws IOException {
         String msg;
         try {
@@ -105,6 +123,14 @@ public class UsuarioMB implements Serializable {
 
     public Dao<Cargo> getCargoDao() {
         return cargoDao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setCargoDao(Dao<Cargo> cargoDao) {

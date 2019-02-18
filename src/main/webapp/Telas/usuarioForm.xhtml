@@ -16,8 +16,13 @@
     </ui:define>
 
     <ui:define name="body">
-        <h:form id="formUsuario">
+        <f:metadata>
+            <f:viewParam name="id" value="#{usuarioMB.id}" converter="javax.faces.Long"/>
+              <f:viewAction action="#{usuarioMB.init()}"/>
+            <!--<f:event type="preRenderView" listener="#{usuarioMB.init()}"/>-->
+        </f:metadata>
 
+        <h:form id="formUsuario">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <p:commandButton value="Back" immediate="true"
