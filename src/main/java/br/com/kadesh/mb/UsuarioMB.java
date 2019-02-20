@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Faces;
 import static com.github.adminfaces.template.util.Assert.has;
+import org.omnifaces.util.Messages;
 
 @ManagedBean
 @ViewScoped
@@ -34,31 +35,46 @@ public class UsuarioMB implements Serializable {
     private Cargo cargo = new Cargo();
 
     private int id = 0;
+    private boolean altera;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
             return;
         }
 //        if (has(id)) {
-            if (id != 0){
+        if (id != 0) {
             usuario = usuarioDao.buscarPorId(id);
-        }
-        else {
-//            usuario = new Usuario();
+            altera = true;
+        } else {
+            usuario = new Usuario();
+            altera = false;
         }
     }
 
     public void salvar() {
-        String msg;
+        if (altera) {
+            try {
+                usuarioDao.alterar(usuario);
+                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Alterado com sucesso");
+                usuario = new Usuario();
+                selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
 
-        usuarioDao.salvar(usuario);
-        msg = "Usuário " + usuario.getNome() + " Cadastrado com sucesso";
-        usuario = new Usuario();
-        selectAll();
-        addDetailMessage(msg);
+        } else {
+            try {
+                usuarioDao.salvar(usuario);
+                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Cadastrado com sucesso");
+                usuario = new Usuario();
+                selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+
+        }
     }
 
-   
     public void excluir() throws IOException {
         String msg;
         try {
@@ -143,6 +159,14 @@ public class UsuarioMB implements Serializable {
 
     public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
         this.usuarioSelecionado = usuarioSelecionado;
+    }
+
+    public boolean isAltera() {
+        return altera;
+    }
+
+    public void setAltera(boolean altera) {
+        this.altera = altera;
     }
 
 }
