@@ -36,6 +36,7 @@ public class UsuarioMB implements Serializable {
 
     private int id = 0;
     private boolean altera;
+    private boolean novo;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
@@ -44,25 +45,16 @@ public class UsuarioMB implements Serializable {
 //        if (has(id)) {
         if (id != 0) {
             usuario = usuarioDao.buscarPorId(id);
-            altera = true;
+            novo = false;
         } else {
             usuario = new Usuario();
-            altera = false;
+            altera = true;
+            novo = true;
         }
     }
 
     public void salvar() {
-        if (altera) {
-            try {
-                usuarioDao.alterar(usuario);
-                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Alterado com sucesso");
-                usuario = new Usuario();
-                selectAll();
-            } catch (Exception e) {
-                Messages.addGlobalError("Falha ao alterar");
-            }
-
-        } else {
+        if (novo) {
             try {
                 usuarioDao.salvar(usuario);
                 Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Cadastrado com sucesso");
@@ -72,7 +64,25 @@ public class UsuarioMB implements Serializable {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
 
+        } else {
+            try {
+                usuarioDao.alterar(usuario);
+                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Alterado com sucesso");
+                usuario = new Usuario();
+                selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
+
         }
+    }
+
+    public void prepAlterar() {
+        altera = true;
+    }
+
+    public void cancelaAlterar() {
+        altera = false;
     }
 
     public void excluir() throws IOException {
@@ -167,6 +177,14 @@ public class UsuarioMB implements Serializable {
 
     public void setAltera(boolean altera) {
         this.altera = altera;
+    }
+
+    public boolean isNovo() {
+        return novo;
+    }
+
+    public void setNovo(boolean novo) {
+        this.novo = novo;
     }
 
 }

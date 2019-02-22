@@ -12,6 +12,8 @@
             .ui-datatable .ui-datatable-header {
                 text-align: right !important;
             }
+            
+            
         </style>
     </ui:define>
 
@@ -24,14 +26,6 @@
                     <div id="main-buttons" class="hidden-sm hidden-xs">
                         <p:commandButton action="usuarioForm?faces-redirect=true" icon="fa fa-plus"
                                          value="Novo" styleClass="btn-primary"/>
-
-                        <p:spacer width="5"/>
-
-                        <p:commandButton action="usuarioForm?faces-redirect=true" icon="fa fa-edit"
-                                         value="Editar" styleClass="btn-warning"
-                                         disabled="#{usuarioMB.usuarioSelecionado.id == 0}">
-                            <f:param name="id" value="#{usuarioMB.usuarioSelecionado.id}"/>
-                        </p:commandButton>
 
                         <p:spacer width="5"/>
 
