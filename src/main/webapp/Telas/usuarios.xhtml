@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
@@ -12,74 +13,118 @@
             .ui-datatable .ui-datatable-header {
                 text-align: right !important;
             }
-            
-            
+
+
         </style>
     </ui:define>
 
     <ui:define name="body">
         <h:form id="formUsuario">
 
-            <div class="box box-primary">
+            <div id="a" class="box box-primary">
                 <div class="box-header with-border">
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton action="usuarioForm?faces-redirect=true" icon="fa fa-plus"
-                                         value="Novo" styleClass="btn-primary"/>
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="usuarioForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
 
-                        <p:spacer width="5"/>
+                            <p:spacer width="5"/>
 
-                        <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
-                                         action="#{usuarioMB.excluir}"
-                                         disabled="#{usuarioMB.usuarioSelecionado.id == 0}"
-                                         process="@form" update="@form">
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{usuarioMB.excluir}"
+                                             disabled="#{usuarioMB.usuarioSelecionado.id == 0}"
+                                             process="@form" update="@form">
 
-                            <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
-                        </p:commandButton>
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
 
-                        <p:spacer width="5"/>
+                            <p:spacer width="5"/>
 
-                        <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
-                                         disabled="#{usuarioMB.usuarioSelecionado.id == 0}"
-                                         oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{usuarioMB.usuarioSelecionado.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
+
                     </div>
 
-                    <p:dataTable   id="tblUsuarios" widgetVar="tblUsuarios" var="usuario" value="#{usuarioMB.usuarios}"
-                                   rows="20"
-                                   selectionMode="single" selection="#{usuarioMB.usuarioSelecionado}"
-                                   rowKey="#{usuario.id}" lazy="true" paginator="true"
-                                   paginatorPosition="bottom" 
-                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
-                                   currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
-                                   rowsPerPageTemplate="5,10,15,20,30"
-                                   >
-                        <p:ajax event="rowSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
 
-                        <p:column headerText="Nome" filterBy="#{usuario.nome}" sortBy="#{usuario.nome}" filterMatchMode="contains">
+                    <b:dataTable 
+                        id="tblUsuarios2"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{usuarioMB.usuarios}"
+                        var="usuario"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:usuarioMB.selecionar(usuario);"
+                        ondeselect="ajax:usuarioMB.deselecionar();"
+                        update=":formUsuario:painelBotoes"
 
+
+
+
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
+
+
+
+                        <b:dataTableColumn label="Nome" >
                             <p:link value="#{usuario.nome}" outcome="usuarioForm" >
                                 <f:param name="id" value="#{usuario.id}"/>	                        	
-                            </p:link>	      
+                            </p:link>	
+                        </b:dataTableColumn>
 
-                        </p:column>
-
-                        <p:column headerText="Usuario" filterBy="#{usuario.usuarioAd}" sortBy="#{usuario.usuarioAd}" filterMatchMode="contains">
-                            <h:outputLabel value="#{usuario.usuarioAd}" />
-                        </p:column>
-
-                        <p:column headerText="Email">
-                            <h:outputLabel value="#{usuario.email}" />
-                        </p:column>
-                        <p:column headerText="Skype">
-                            <h:outputLabel value="#{usuario.skype}" />
-                        </p:column>
-                        <p:column headerText="Cargo">
-                            <h:outputLabel value="#{usuario.cargo.cargo}" />
-                        </p:column>
+                        <b:dataTableColumn value="#{usuario.usuarioAd}" label="Usuario" />
+                        <b:dataTableColumn value="#{usuario.email}" label="Email" />
+                        <b:dataTableColumn value="#{usuario.skype}" label="Skype" />
+                        <b:dataTableColumn value="#{usuario.cargo.cargo}" label="Cargo" />
 
 
-                    </p:dataTable>
+
+                    </b:dataTable> 
+
+
+
+                    <!--
+                                        <p:dataTable   id="tblUsuarios" widgetVar="tblUsuarios" rows="20" 
+                                                       value="#{usuarioMB.usuarios}" var="usuario" rowKey="#{usuario.id}" 
+                                                       selectionMode="single" selection="#{usuarioMB.usuarioSelecionado}"
+                                                       paginator="true"
+                                                       paginatorPosition="bottom" 
+                                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                                       currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                                       rowsPerPageTemplate="5,10,15,20,30"
+                                                       >
+                    
+                                            <p:ajax event="rowSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
+                                            <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
+                    
+                                            <p:column headerText="Nome"  sortBy="#{usuario.nome}">
+                    
+                                                <p:link value="#{usuario.nome}" outcome="usuarioForm" >
+                                                    <f:param name="id" value="#{usuario.id}"/>	                        	
+                                                </p:link>	      
+                    
+                                            </p:column>
+                    
+                                            <p:column headerText="Usuario"  sortBy="#{usuario.usuarioAd}">
+                                                <h:outputLabel value="#{usuario.usuarioAd}" />
+                                            </p:column>
+                    
+                                            <p:column headerText="Email">
+                                                <h:outputLabel value="#{usuario.email}" />
+                                            </p:column>
+                                            <p:column headerText="Skype">
+                                                <h:outputLabel value="#{usuario.skype}" />
+                                            </p:column>
+                                            <p:column headerText="Cargo">
+                                                <h:outputLabel value="#{usuario.cargo.cargo}" />
+                                            </p:column>
+                    
+                    
+                                        </p:dataTable>-->
 
                 </div>
             </div>

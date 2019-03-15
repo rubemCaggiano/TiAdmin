@@ -76,6 +76,15 @@ public class UsuarioMB implements Serializable {
 
         }
     }
+    
+    public void selecionar(Usuario u){
+        usuarioSelecionado = u;
+        System.out.println(usuarioSelecionado.getNome());
+    }
+    
+    public void deselecionar(){
+        usuarioSelecionado = new Usuario();
+    }
 
     public void prepAlterar() {
         altera = true;
