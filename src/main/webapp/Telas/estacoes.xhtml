@@ -3,10 +3,11 @@
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
-        <ui:param name="title" value="Estações"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+        <ui:param name="title" value="Estaçoes"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
 
         <style type="text/css">
             .ui-datatable .ui-datatable-header {
@@ -16,87 +17,88 @@
     </ui:define>
 
     <ui:define name="body">
-        <h:form>
+
+
+        <h:form id="formEstacoes">
+
+            <p:growl id="mensagem" showDetail="false" life="800" />
             <div class="box box-primary">
                 <div class="box-header with-border">
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton action="/usuarioForm?faces-redirect=true" icon="fa fa-plus"
-                                         value="Novo" styleClass="btn-primary"/>
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="estacaoForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
 
-                        <p:spacer width="5"/>
+                            <p:spacer width="5"/>
 
-                        <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
-                                         action="#{carListMB.delete}"
-                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                         process="@this" update="@form"
-                                         >
-                            <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
-                        </p:commandButton>
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{estacaoMB.excluir}"
+                                             disabled="#{estacaoMB.estacaoSelecionada.id == 0}"
+                                             process="@form" update="@form">
 
-                        <p:spacer width="5"/>
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
 
-                        <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
-                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                         oncomplete="PF('selectedCars').show()" icon="fa fa-search"/>
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{estacaoMB.estacaoSelecionada.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
                     </div>
 
-                    <p:dataTable   id="tblEstacoes" widgetVar="tblEstacoes" var="e" value="#{estacaoMB.estacoes}"
-                                   rows="20"
-                                   selectionMode="single" selection="#{estacaoMB.estacaoSelecionada}"
-                                   rowKey="#{e.id}" lazy="true" paginator="true"
-                                   paginatorPosition="bottom" 
-                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
-                                   currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
-                                   rowsPerPageTemplate="5,10,15,20,30"
-                                   >
 
-                        <p:column headerText="Estação" filterBy="#{e.nome}" sortBy="#{e.nome}" filterMatchMode="contains">
-                            <h:link value="#{e.nome}" outcome="cadastro-tarefa.xhtml">
-                                <f:param name="id" value="#{e.id}"/>	                        	
-                            </h:link>	                        
-                        </p:column>
+                    <b:dataTable 
+                        id="tblEstacaos"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{estacaoMB.estacoes}"
+                        var="estacao"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:estacaoMB.selecionar(estacao);"
+                        ondeselect="ajax:estacaoMB.deselecionar();"
+                        update=":formEstacoes:painelBotoes"
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
 
-                        <p:column headerText="Utilizador" filterBy="#{e.usuario.nome}" sortBy="#{e.usuario.nome}" filterMatchMode="contains">
-                            <h:outputLabel value="#{e.usuario.nome}" />
-                        </p:column>
+                        <b:dataTableColumn label="Estaçao" >
+                            <p:link value="#{estacaoMB.estacao.nome}" outcome="estacaoForm" >
+                                <f:param name="id" value="#{estacao.id}"/>	                        	
+                            </p:link>	
+                        </b:dataTableColumn>
 
-                        <p:column headerText="Usuario AD" filterBy="#{e.usuario.usuarioAd}" sortBy="#{e.usuario.usuarioAd}" filterMatchMode="contains">
-                            <h:outputLabel value="#{e.usuario.usuarioAd}" />
-                        </p:column>
+                        <b:dataTableColumn label="Utilizador" value="#{estacao.usuario.nome}"/>
+                        <b:dataTableColumn label="Usuario" value="#{estacao.usuario.usuarioAd}"/>
+                        <b:dataTableColumn label="Setor" value="#{estacao.setor.setor}"/>
+                        <b:dataTableColumn label="MAC" value="#{estacao.mac}"/>
+                        <b:dataTableColumn label="Sistema" value="#{estacao.so.versao}"/>
+                        <b:dataTableColumn label="Dominio" value="#{estacao.dominio}"/>
+                        <b:dataTableColumn label="Data de Cadastro" value="#{estacao.dataCadastro}"/>
+                        <b:dataTableColumn label="Data de Alteração" value="#{estacao.dataAlteracao}"/>
+                        <b:dataTableColumn label="Observação" value="#{estacao.observacao}"/>
 
-                        <p:column headerText="Setor" filterBy="#{e.setor.setor}" sortBy="#{e.setor.setor}" filterMatchMode="contains">
-                            <h:outputLabel value="#{e.setor.setor}" />
-                        </p:column>
 
-                        <p:column headerText="MAC Address" filterBy="#{e.mac}" sortBy="#{e.mac}" filterMatchMode="contains">
-                            <h:outputLabel value="#{e.mac}" />
-                        </p:column>
+                    </b:dataTable> 
 
-                        <p:column headerText="S.O" filterBy="#{e.so.versao}" sortBy="#{e.so.versao}" filterMatchMode="contains">
-                            <h:outputLabel value="#{e.so.versao}" />
-                        </p:column>
 
-                        <p:column headerText="Dominio">
-                            <h:outputLabel value="#{e.dominio}" />
-                        </p:column>
-
-                        <p:column headerText="Cadastrado em">
-                            <h:outputLabel value="#{e.dataCadastro}" />
-                        </p:column>
-
-                        <p:column headerText="Alterado em">
-                            <h:outputLabel value="#{e.dataAlteracao}" />
-                        </p:column>
-
-                        <p:column headerText="Observação">
-                            <h:outputLabel value="#{e.observacao}" />
-                        </p:column>
-
-                    </p:dataTable>
                 </div>
             </div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
+                <p:commandButton value="Sim" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
+                                 icon="fa fa-check"/>
+                <p:commandButton value="Não" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
+                                 icon="fa fa-close"/>
+            </p:confirmDialog>
         </h:form>
+
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
+                  width="400" responsive="true" styleClass="box-success">
+            <p:outputLabel value="#{estacaoMB.estacaoSelecionada.nome}"/>
+        </p:dialog>
+
 
     </ui:define>
 
