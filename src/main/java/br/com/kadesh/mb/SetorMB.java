@@ -2,7 +2,8 @@ package br.com.kadesh.mb;
 
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
-import br.com.kadesh.model.Cargo;
+import br.com.kadesh.model.Setor;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,17 @@ import org.omnifaces.util.Messages;
 
 @ManagedBean
 @ViewScoped
-public class CargoMB implements Serializable {
+public class SetorMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Dao<Cargo> cargoDao = new GenericDAO<>(Cargo.class);
+    private Dao<Setor> setorDao = new GenericDAO<>(Setor.class);
 
-    private List<Cargo> cargos = new ArrayList<>();
+    private List<Setor> setores = new ArrayList<>();
 
-    private Cargo cargo = new Cargo();
-    private Cargo cargoSelecionado = new Cargo();
+    private Setor setor = new Setor();
+
+    private Setor setorSelecionado = new Setor();
 
     private int id = 0;
     private boolean altera;
@@ -35,10 +37,10 @@ public class CargoMB implements Serializable {
         }
 //        if (has(id)) {
         if (id != 0) {
-            cargo = cargoDao.buscarPorId(id);
+            setor = setorDao.buscarPorId(id);
             novo = false;
         } else {
-            cargo = new Cargo();
+            setor = new Setor();
             altera = true;
             novo = true;
         }
@@ -47,9 +49,9 @@ public class CargoMB implements Serializable {
     public void salvar() {
 
         try {
-            cargoDao.salvar(cargo);
-            Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
-            cargo = new Cargo();
+            setorDao.salvar(setor);
+            Messages.addGlobalInfo("Setor " + setor.getSetor() + " Cadastrado com sucesso");
+            setor = new Setor();
             selectAll();
 
         } catch (Exception e) {
@@ -60,9 +62,9 @@ public class CargoMB implements Serializable {
 
     public void excluir() {
         try {
-            cargoDao.excluir(cargoSelecionado);
-            cargos.remove(cargoSelecionado);
-            Messages.addGlobalInfo("Cargo " + cargoSelecionado.getCargo() + " Excluido com sucesso");
+            setorDao.excluir(setorSelecionado);
+            setores.remove(setorSelecionado);
+            Messages.addGlobalInfo("Cargo " + setorSelecionado.getSetor() + " Excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
@@ -72,15 +74,15 @@ public class CargoMB implements Serializable {
 
     @PostConstruct
     public void selectAll() {
-        cargos = cargoDao.buscarTodos(Cargo.class);
+        setores = setorDao.buscarTodos(Setor.class);
     }
 
-    public void selecionar(Cargo c) {
-        cargoSelecionado = c;
+    public void selecionar(Setor s) {
+        setorSelecionado = s;
     }
 
     public void deselecionar() {
-        cargoSelecionado = new Cargo();
+        setorSelecionado = new Setor();
     }
 
     public void prepAlterar() {
@@ -91,38 +93,38 @@ public class CargoMB implements Serializable {
         altera = false;
     }
 
-//    Getters and Setters
-//    ---------------------------------------------------------------------------
-    public List<Cargo> getCargos() {
-        return cargos;
+// Getters and Setters   
+//-------------------------------------------------------------------------------    
+    public Dao<Setor> getSetorDao() {
+        return setorDao;
     }
 
-    public void setCargos(List<Cargo> cargos) {
-        this.cargos = cargos;
+    public void setSetorDao(Dao<Setor> setorDao) {
+        this.setorDao = setorDao;
     }
 
-    public Cargo getCargo() {
-        return cargo;
+    public List<Setor> getSetores() {
+        return setores;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setSetores(List<Setor> setores) {
+        this.setores = setores;
     }
 
-    public Cargo getCargoSelecionado() {
-        return cargoSelecionado;
+    public Setor getSetor() {
+        return setor;
     }
 
-    public void setCargoSelecionado(Cargo cargoSelecionado) {
-        this.cargoSelecionado = cargoSelecionado;
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 
-    public Dao<Cargo> getCargoDao() {
-        return cargoDao;
+    public Setor getSetorSelecionado() {
+        return setorSelecionado;
     }
 
-    public void setCargoDao(Dao<Cargo> cargoDao) {
-        this.cargoDao = cargoDao;
+    public void setSetorSelecionado(Setor setorSelecionado) {
+        this.setorSelecionado = setorSelecionado;
     }
 
     public int getId() {

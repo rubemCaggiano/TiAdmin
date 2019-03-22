@@ -2,7 +2,7 @@ package br.com.kadesh.mb;
 
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
-import br.com.kadesh.model.Cargo;
+import br.com.kadesh.model.Programa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +14,16 @@ import org.omnifaces.util.Messages;
 
 @ManagedBean
 @ViewScoped
-public class CargoMB implements Serializable {
+public class ProgramaMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Dao<Cargo> cargoDao = new GenericDAO<>(Cargo.class);
+    private Dao<Programa> programaDao = new GenericDAO<>(Programa.class);
 
-    private List<Cargo> cargos = new ArrayList<>();
+    private List<Programa> programas = new ArrayList<>();
 
-    private Cargo cargo = new Cargo();
-    private Cargo cargoSelecionado = new Cargo();
+    private Programa programa = new Programa();
+    private Programa programaSelecionado = new Programa();
 
     private int id = 0;
     private boolean altera;
@@ -35,10 +35,10 @@ public class CargoMB implements Serializable {
         }
 //        if (has(id)) {
         if (id != 0) {
-            cargo = cargoDao.buscarPorId(id);
+            programa = programaDao.buscarPorId(id);
             novo = false;
         } else {
-            cargo = new Cargo();
+            programa = new Programa();
             altera = true;
             novo = true;
         }
@@ -47,9 +47,9 @@ public class CargoMB implements Serializable {
     public void salvar() {
 
         try {
-            cargoDao.salvar(cargo);
-            Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
-            cargo = new Cargo();
+            programaDao.salvar(programa);
+            Messages.addGlobalInfo("programa " + programa.getPrograma() + " Cadastrado com sucesso");
+            programa = new Programa();
             selectAll();
 
         } catch (Exception e) {
@@ -60,9 +60,9 @@ public class CargoMB implements Serializable {
 
     public void excluir() {
         try {
-            cargoDao.excluir(cargoSelecionado);
-            cargos.remove(cargoSelecionado);
-            Messages.addGlobalInfo("Cargo " + cargoSelecionado.getCargo() + " Excluido com sucesso");
+            programaDao.excluir(programaSelecionado);
+            programas.remove(programaSelecionado);
+            Messages.addGlobalInfo("programa " + programaSelecionado.getPrograma() + " Excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
@@ -72,15 +72,15 @@ public class CargoMB implements Serializable {
 
     @PostConstruct
     public void selectAll() {
-        cargos = cargoDao.buscarTodos(Cargo.class);
+        programas = programaDao.buscarTodos(Programa.class);
     }
 
-    public void selecionar(Cargo c) {
-        cargoSelecionado = c;
+    public void selecionar(Programa c) {
+        programaSelecionado = c;
     }
 
     public void deselecionar() {
-        cargoSelecionado = new Cargo();
+        programaSelecionado = new Programa();
     }
 
     public void prepAlterar() {
@@ -93,36 +93,36 @@ public class CargoMB implements Serializable {
 
 //    Getters and Setters
 //    ---------------------------------------------------------------------------
-    public List<Cargo> getCargos() {
-        return cargos;
+    public Dao<Programa> getProgramaDao() {
+        return programaDao;
     }
 
-    public void setCargos(List<Cargo> cargos) {
-        this.cargos = cargos;
+    public void setProgramaDao(Dao<Programa> programaDao) {
+        this.programaDao = programaDao;
     }
 
-    public Cargo getCargo() {
-        return cargo;
+    public List<Programa> getProgramas() {
+        return programas;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setProgramas(List<Programa> programas) {
+        this.programas = programas;
     }
 
-    public Cargo getCargoSelecionado() {
-        return cargoSelecionado;
+    public Programa getPrograma() {
+        return programa;
     }
 
-    public void setCargoSelecionado(Cargo cargoSelecionado) {
-        this.cargoSelecionado = cargoSelecionado;
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
     }
 
-    public Dao<Cargo> getCargoDao() {
-        return cargoDao;
+    public Programa getProgramaSelecionado() {
+        return programaSelecionado;
     }
 
-    public void setCargoDao(Dao<Cargo> cargoDao) {
-        this.cargoDao = cargoDao;
+    public void setProgramaSelecionado(Programa programaSelecionado) {
+        this.programaSelecionado = programaSelecionado;
     }
 
     public int getId() {

@@ -61,14 +61,8 @@
                         onselect="ajax:usuarioMB.selecionar(usuario);"
                         ondeselect="ajax:usuarioMB.deselecionar();"
                         update=":formUsuario:painelBotoes"
-
-
-
-
                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                         >
-
-
 
                         <b:dataTableColumn label="Nome" >
                             <p:link value="#{usuario.nome}" outcome="usuarioForm" >
@@ -80,8 +74,6 @@
                         <b:dataTableColumn value="#{usuario.email}" label="Email" />
                         <b:dataTableColumn value="#{usuario.skype}" label="Skype" />
                         <b:dataTableColumn value="#{usuario.cargo.cargo}" label="Cargo" />
-
-
 
                     </b:dataTable> 
 

@@ -1,5 +1,6 @@
 package br.com.kadesh.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -20,14 +21,14 @@ public class Estacao extends Computador {
         this.setor = setor;
     }
 
-    public Estacao(Usuario usuario, Setor setor, SistemaOperacional so, boolean dominio) {
-        super(so, dominio);
+    public Estacao(Usuario usuario, Setor setor, SistemaOperacional so, boolean dominio, List<Programa> programasInstalados) {
+        super(so, dominio, programasInstalados);
         this.usuario = usuario;
         this.setor = setor;
     }
 
-    public Estacao(Usuario usuario, Setor setor, SistemaOperacional so, boolean dominio, int id, String ip, String mac, String nome, String observacao) {
-        super(so, dominio, id, ip, mac, nome, observacao);
+    public Estacao(Usuario usuario, Setor setor, SistemaOperacional so, boolean dominio, List<Programa> programasInstalados, int id, String ip, String mac, String nome, String observacao) {
+        super(so, dominio, programasInstalados, id, ip, mac, nome, observacao);
         this.usuario = usuario;
         this.setor = setor;
     }

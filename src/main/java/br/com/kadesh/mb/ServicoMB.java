@@ -2,7 +2,7 @@ package br.com.kadesh.mb;
 
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
-import br.com.kadesh.model.Cargo;
+import br.com.kadesh.model.Servico;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +14,14 @@ import org.omnifaces.util.Messages;
 
 @ManagedBean
 @ViewScoped
-public class CargoMB implements Serializable {
+public class ServicoMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Dao<Cargo> cargoDao = new GenericDAO<>(Cargo.class);
-
-    private List<Cargo> cargos = new ArrayList<>();
-
-    private Cargo cargo = new Cargo();
-    private Cargo cargoSelecionado = new Cargo();
+    private Dao<Servico> servicoDao = new GenericDAO<>(Servico.class);
+    private List<Servico> servicos = new ArrayList<>();
+    private Servico servico = new Servico();
+    private Servico servicoSelecionado = new Servico();
 
     private int id = 0;
     private boolean altera;
@@ -33,12 +31,11 @@ public class CargoMB implements Serializable {
         if (Faces.isAjaxRequest()) {
             return;
         }
-//        if (has(id)) {
         if (id != 0) {
-            cargo = cargoDao.buscarPorId(id);
+            servico = servicoDao.buscarPorId(id);
             novo = false;
         } else {
-            cargo = new Cargo();
+            servico = new Servico();
             altera = true;
             novo = true;
         }
@@ -47,9 +44,9 @@ public class CargoMB implements Serializable {
     public void salvar() {
 
         try {
-            cargoDao.salvar(cargo);
-            Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
-            cargo = new Cargo();
+            servicoDao.salvar(servico);
+            Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
+            servico = new Servico();
             selectAll();
 
         } catch (Exception e) {
@@ -60,9 +57,9 @@ public class CargoMB implements Serializable {
 
     public void excluir() {
         try {
-            cargoDao.excluir(cargoSelecionado);
-            cargos.remove(cargoSelecionado);
-            Messages.addGlobalInfo("Cargo " + cargoSelecionado.getCargo() + " Excluido com sucesso");
+            servicoDao.excluir(servicoSelecionado);
+            servicos.remove(servicoSelecionado);
+            Messages.addGlobalInfo("Serviço " + servico.getServico() + " Excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
@@ -72,15 +69,15 @@ public class CargoMB implements Serializable {
 
     @PostConstruct
     public void selectAll() {
-        cargos = cargoDao.buscarTodos(Cargo.class);
+        servicos = servicoDao.buscarTodos(Servico.class);
     }
 
-    public void selecionar(Cargo c) {
-        cargoSelecionado = c;
+    public void selecionar(Servico s) {
+        servicoSelecionado = s;
     }
 
     public void deselecionar() {
-        cargoSelecionado = new Cargo();
+        servicoSelecionado = new Servico();
     }
 
     public void prepAlterar() {
@@ -91,38 +88,38 @@ public class CargoMB implements Serializable {
         altera = false;
     }
 
-//    Getters and Setters
-//    ---------------------------------------------------------------------------
-    public List<Cargo> getCargos() {
-        return cargos;
+//Getters and Setters
+//------------------------------------------------------------------------------    
+    public Dao<Servico> getServicoDao() {
+        return servicoDao;
     }
 
-    public void setCargos(List<Cargo> cargos) {
-        this.cargos = cargos;
+    public void setServicoDao(Dao<Servico> servicoDao) {
+        this.servicoDao = servicoDao;
     }
 
-    public Cargo getCargo() {
-        return cargo;
+    public List<Servico> getServicos() {
+        return servicos;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
     }
 
-    public Cargo getCargoSelecionado() {
-        return cargoSelecionado;
+    public Servico getServico() {
+        return servico;
     }
 
-    public void setCargoSelecionado(Cargo cargoSelecionado) {
-        this.cargoSelecionado = cargoSelecionado;
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 
-    public Dao<Cargo> getCargoDao() {
-        return cargoDao;
+    public Servico getServicoSelecionado() {
+        return servicoSelecionado;
     }
 
-    public void setCargoDao(Dao<Cargo> cargoDao) {
-        this.cargoDao = cargoDao;
+    public void setServicoSelecionado(Servico servicoSelecionado) {
+        this.servicoSelecionado = servicoSelecionado;
     }
 
     public int getId() {

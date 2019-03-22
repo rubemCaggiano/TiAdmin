@@ -24,6 +24,7 @@
         <mapping class="br.com.kadesh.model.SistemaOperacional"/>
         <mapping class="br.com.kadesh.model.Usuario"/>
         <mapping class="br.com.kadesh.model.Cargo"/>
+        <mapping class="br.com.kadesh.model.Programa"/>
 
         
         

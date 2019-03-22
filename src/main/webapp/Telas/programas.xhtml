@@ -7,7 +7,7 @@
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
-        <ui:param name="title" value="Cargos"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+        <ui:param name="title" value="Programas"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
 
         <style type="text/css">
             .ui-datatable .ui-datatable-header {
@@ -19,7 +19,7 @@
     <ui:define name="body">
 
 
-        <h:form id="formCargos">
+        <h:form id="formProgramas">
 
             <p:growl id="mensagem" showDetail="false" life="800" />
             <div class="box box-primary">
@@ -27,14 +27,14 @@
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
                         <b:panel id="painelBotoes" >
-                            <p:commandButton action="cargoForm?faces-redirect=true" icon="fa fa-plus"
+                            <p:commandButton action="programaForm?faces-redirect=true" icon="fa fa-plus"
                                              value="Novo" styleClass="btn-primary"/>
 
                             <p:spacer width="5"/>
 
                             <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
-                                             action="#{cargoMB.excluir}"
-                                             disabled="#{cargoMB.cargoSelecionado.id == 0}"
+                                             action="#{programaMB.excluir}"
+                                             disabled="#{programaMB.programaSelecionado.id == 0}"
                                              process="@form" update="@form">
 
                                 <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
@@ -43,58 +43,35 @@
                             <p:spacer width="5"/>
 
                             <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
-                                             disabled="#{cargoMB.cargoSelecionado.id == 0}"
+                                             disabled="#{programaMB.programaSelecionado.id == 0}"
                                              oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
                         </b:panel>
                     </div>
 
 
                     <b:dataTable 
-                        id="tblCargos"
+                        id="tblProgramas"
                         excel="true"
                         columnVisibility="true"
                         print="true"
-                        value="#{cargoMB.cargos}"
-                        var="cargo"
+                        value="#{programaMB.programas}"
+                        var="programa"
                         select="true"
                         selectionMode="single"
-                        onselect="ajax:cargoMB.selecionar(cargo);"
-                        ondeselect="ajax:cargoMB.deselecionar();"
-                        update=":formCargos:painelBotoes"
+                        onselect="ajax:programaMB.selecionar(programa);"
+                        ondeselect="ajax:programaMB.deselecionar();"
+                        update=":formProgramas:painelBotoes"
                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                         >
 
-                        <b:dataTableColumn label="Cargo" >
-                            <p:link value="#{cargo.cargo}" outcome="cargoForm" >
-                                <f:param name="id" value="#{cargo.id}"/>	                        	
+                        <b:dataTableColumn label="Programa" >
+                            <p:link value="#{programa.programa}" outcome="programaForm" >
+                                <f:param name="id" value="#{programa.id}"/>	                        	
                             </p:link>	
                         </b:dataTableColumn>
 
-
-
+                        <b:dataTableColumn label="Fornacedor" value="#{programa.fornecedor}"/>
                     </b:dataTable> 
-
-
-<!--                    <p:dataTable   id="tblCargos" widgetVar="tblCargos" var="cargo" value="#{cargoMB.cargos}"
-                                   rows="20"
-                                   selectionMode="single" selection="#{cargoMB.cargoSelecionado}"
-                                   rowKey="#{cargo.id}" lazy="true" paginator="true"
-                                   paginatorPosition="bottom" 
-                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
-                                   currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
-                                   rowsPerPageTemplate="5,10,15,20,30"
-                                   >
-                        <p:ajax event="rowSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
-
-                        <p:column headerText="Nome" filterBy="#{cargo.cargo}" sortBy="#{cargo.cargo}" filterMatchMode="contains">
-                            <h:link value="#{cargo.cargo}" >
-                                <f:param name="id" value="#{cargo.id}"/>	                        	
-                            </h:link>	                        
-                        </p:column>
-
-
-                    </p:dataTable>-->
 
                 </div>
             </div>
@@ -108,22 +85,22 @@
 
         <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
                   width="400" responsive="true" styleClass="box-success">
-            <p:outputLabel value="#{cargoMB.cargoSelecionado.cargo}"/>
+            <p:outputLabel value="#{programaMB.programaSelecionado.programa}"/>
         </p:dialog>
 
-        <p:dialog id="cadastro" header="Novo Cargo" widgetVar="cadastro" responsive="true" modal="true" width="700px">
-            <h:form id="formCargo">
+        <p:dialog id="cadastro" header="Novo Programa" widgetVar="cadastro" responsive="true" modal="true" width="700px">
+            <h:form id="formPrograma">
 
                 <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6" 
                              layout="grid" styleClass="ui-fluid card">
                     <p:outputLabel for="nome" value="Nome"/>
-                    <p:inputText id="nome" value="#{cargoMB.cargo.cargo}" required="true" />
+                    <p:inputText id="nome" value="#{programaMB.programa.programa}" required="true" />
                     <p:message for="nome"/>
 
 
                 </p:panelGrid>
                 <p:separator/>
-                <p:commandButton value="Salvar" action="#{cargoMB.salvar}" update="@form, :formCargos:tblCargos"
+                <p:commandButton value="Salvar" action="#{programaMB.salvar}" update="@form, :formProgramas:tblProgramas"
                                  icon="fa fa-check" styleClass="btn-primary" >
 
                 </p:commandButton>

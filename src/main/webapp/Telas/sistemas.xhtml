@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Sistemas Operacionais"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <h:form id="formSistemas">
+
+            <p:growl id="mensagem" showDetail="false" life="800" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="sistemaForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{soMB.excluir}"
+                                             disabled="#{soMB.sistemaSelecionado.id == 0}"
+                                             process="@form" update="@form">
+
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{soMB.sistemaSelecionado.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
+                    </div>
+
+
+                    <b:dataTable 
+                        id="tblSistemas"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{soMB.sistemas}"
+                        var="sistema"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:soMB.selecionar(sistema);"
+                        ondeselect="ajax:soMB.deselecionar();"
+                        update=":formSistemas:painelBotoes"
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
+
+                        <b:dataTableColumn label="Sistema Operacional" >
+                            <p:link value="#{sistema.versao}" outcome="sistemaForm" >
+                                <f:param name="id" value="#{sistema.id}"/>	                        	
+                            </p:link>	
+                        </b:dataTableColumn>
+
+                    </b:dataTable> 
+
+
+                </div>
+            </div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
+                <p:commandButton value="Sim" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
+                                 icon="fa fa-check"/>
+                <p:commandButton value="Não" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
+                                 icon="fa fa-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
+                  width="400" responsive="true" styleClass="box-success">
+            <p:outputLabel value="#{soMB.sistemaSelecionado.versao}"/>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

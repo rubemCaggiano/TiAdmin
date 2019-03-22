@@ -6,7 +6,7 @@
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
-        <ui:param name="title" value="Cadastro de Cargos"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+        <ui:param name="title" value="Cadastro de Serviços"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
 
         <style type="text/css">
             .ui-datatable .ui-datatable-header {
@@ -24,37 +24,36 @@
 
     <ui:define name="body">
         <f:metadata>
-            <f:viewParam name="id" value="#{cargoMB.id}" converter="javax.faces.Long"/>
-            <f:viewAction action="#{cargoMB.init()}"/>
-          <!--<f:event type="preRenderView" listener="#{usuarioMB.init()}"/>-->
+            <f:viewParam name="id" value="#{servicoMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{servicoMB.init()}"/>
         </f:metadata>
 
-        <h:form id="formCargo">
+        <h:form id="formservico">
             <p:growl id="mensagem" showDetail="false" life="2500" />
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <p:commandButton value="Back" immediate="true"
-                                     action="cargos?faces-redirect=true"
+                                     action="servicos?faces-redirect=true"
                                      process="@this"
                                      icon="fa fa-reply">
                     </p:commandButton>
                     <p:spacer width="5"/>
 
-                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{cargoMB.prepAlterar()}"
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{servicoMB.prepAlterar()}"
                                       styleClass="btn-warning" update="@form"
-                                      rendered="#{!cargoMB.altera}"/>
+                                      rendered="#{!servicoMB.altera}"/>
 
 
-                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{cargoMB.cancelaAlterar()}"
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{servicoMB.cancelaAlterar()}"
                                       styleClass="btn-danger" update="@form"
-                                      rendered="#{cargoMB.altera}"/>
+                                      rendered="#{servicoMB.altera}"/>
                     <p:separator/>
 
                     <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
                                  layout="grid" styleClass="ui-fluid card">
 
                         <p:outputLabel for="nome" value="Nome"/>
-                        <p:inputText id="nome" value="#{cargoMB.cargo.cargo}" required="true" disabled="#{!cargoMB.altera}" />
+                        <p:inputText id="nome" value="#{servicoMB.servico.servico}" required="true" disabled="#{!servicoMB.altera}" />
                         <p:message for="nome"/>
 
 
@@ -63,7 +62,7 @@
 
                     </p:panelGrid>
                     <p:separator/>
-                    <p:commandButton value="Salvar" action="#{cargoMB.salvar}" 
+                    <p:commandButton value="Salvar" action="#{servicoMB.salvar}" 
                                      update="@form" icon="fa fa-check" styleClass="btn-primary"/>
                 </div>
             </div>
