@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
@@ -67,7 +68,53 @@
 
                         <p:outputLabel for="observacao" value="Observações"/>
                         <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}" disabled="#{!estacaoMB.altera}"/>
-                        <p:message for="nome"/>
+                        <p:message for="observacao"/>
+
+                        <p:outputLabel  value="Sistema Operacional"/>
+                        <b:selectOneMenu id="sistema"
+                                         value="#{estacaoMB.estacao.so}" 
+                                         required="true"
+                                         select2="true"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{estacaoMB.sistemas}"
+                                           var="sistema" 
+                                           itemLabel="#{sistema.versao}"
+                                           itemValue="#{sistema}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="sistema"/>
+
+                        <p:outputLabel  value="Usuario"/>
+                        <b:selectOneMenu id="usuario"
+                                         value="#{estacaoMB.estacao.usuario}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{estacaoMB.usuarios}"
+                                           var="usuario" 
+                                           itemLabel="#{usuario.nome}"
+                                           itemValue="#{usuario}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="usuario"/>
+
+                        <p:outputLabel  value="Setor"/>
+                        <b:selectOneMenu id="setor"
+                                         value="#{estacaoMB.estacao.setor}" 
+                                         required="true"
+                                         select2="true"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{estacaoMB.setores}"
+                                           var="setor" 
+                                           itemLabel="#{setor.setor}"
+                                           itemValue="#{setor}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="sistema"/>
 
                         <p:spacer height="10px"/>
 

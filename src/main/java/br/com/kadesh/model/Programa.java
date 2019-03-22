@@ -31,6 +31,31 @@ public class Programa implements Serializable {
         this.fornecedor = fornecedor;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Programa other = (Programa) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
     public int getId() {
         return id;
     }

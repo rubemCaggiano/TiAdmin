@@ -70,6 +70,7 @@
                         <p:message for="skype"/>
 
                         <p:outputLabel for="cargo" value="Cargo" />
+                        
                         <p:selectOneMenu id="cargo" value="#{usuarioMB.usuario.cargo}" dynamic="true" converter="entityConverter" required="true" disabled="#{!usuarioMB.altera}" >
                             <f:selectItem itemLabel="Selecione" />
 
@@ -84,7 +85,7 @@
 
                     </p:panelGrid>
                     <p:separator/>
-                    <p:commandButton value="Salvar" action="#{usuarioMB.salvar}" disabled="#{usuarioMB.altera}"
+                    <p:commandButton value="Salvar" action="#{usuarioMB.salvar}" 
                                      update="@form" icon="fa fa-check" styleClass="btn-primary"/>
                 </div>
             </div>

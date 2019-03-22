@@ -4,6 +4,9 @@ import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Estacao;
 import br.com.kadesh.model.Maquina;
+import br.com.kadesh.model.Programa;
+import br.com.kadesh.model.Setor;
+import br.com.kadesh.model.SistemaOperacional;
 import br.com.kadesh.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,14 +25,23 @@ public class EstacaoMB implements Serializable {
 
     private Dao<Estacao> estacaoDao = new GenericDAO<>(Estacao.class);
     private Dao<Usuario> usuarioDao = new GenericDAO<>(Usuario.class);
+    private Dao<SistemaOperacional> soDao = new GenericDAO<>(SistemaOperacional.class);
+    private Dao<Setor> setorDao = new GenericDAO<>(Setor.class);
+    private Dao<Programa> programaDao = new GenericDAO<>(Programa.class);
 
     private List<Maquina> maquinas = new ArrayList<>();
     private List<Estacao> estacoes = new ArrayList<>();
     private List<Usuario> usuarios = new ArrayList<>();
+    private List<Setor> setores = new ArrayList<>();
+    private List<SistemaOperacional> sistemas = new ArrayList<>();
+    private List<Programa> programas = new ArrayList<>();
 
     private Estacao estacao = new Estacao();
     private Estacao estacaoSelecionada = new Estacao();
     private Usuario usuario = new Usuario();
+    private Setor setor = new Setor();
+    private Programa programa = new Programa();
+    private SistemaOperacional sistema = new SistemaOperacional();
 
     private int id = 0;
     private boolean altera;
@@ -79,6 +91,10 @@ public class EstacaoMB implements Serializable {
     @PostConstruct
     public void selectAll() {
         estacoes = estacaoDao.buscarTodos(Estacao.class);
+        usuarios = usuarioDao.buscarTodos(Usuario.class);
+        setores = setorDao.buscarTodos(Setor.class);
+        programas = programaDao.buscarTodos(Programa.class);
+        sistemas = soDao.buscarTodos(SistemaOperacional.class);
     }
 
     public void selecionar(Estacao c) {
@@ -185,6 +201,54 @@ public class EstacaoMB implements Serializable {
 
     public void setNovo(boolean novo) {
         this.novo = novo;
+    }
+
+    public List<Setor> getSetores() {
+        return setores;
+    }
+
+    public void setSetores(List<Setor> setores) {
+        this.setores = setores;
+    }
+
+    public List<SistemaOperacional> getSistemas() {
+        return sistemas;
+    }
+
+    public void setSistemas(List<SistemaOperacional> sistemas) {
+        this.sistemas = sistemas;
+    }
+
+    public List<Programa> getProgramas() {
+        return programas;
+    }
+
+    public void setProgramas(List<Programa> programas) {
+        this.programas = programas;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
+
+    public SistemaOperacional getSistema() {
+        return sistema;
+    }
+
+    public void setSistema(SistemaOperacional sistema) {
+        this.sistema = sistema;
     }
 
 }

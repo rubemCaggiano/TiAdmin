@@ -27,6 +27,31 @@ public class SistemaOperacional implements Serializable {
         this.versao = versao;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SistemaOperacional other = (SistemaOperacional) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
     public String getVersao() {
         return versao;
     }

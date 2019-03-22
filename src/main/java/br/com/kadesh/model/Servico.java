@@ -28,6 +28,31 @@ public class Servico implements Serializable {
         this.servico = servico;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Servico other = (Servico) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
     public String getServico() {
         return servico;
     }
