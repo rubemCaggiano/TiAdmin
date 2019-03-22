@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -31,7 +32,8 @@ public class Maquina implements Serializable {
     private String nome;
     private String observacao;
 
-    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
 
     @Temporal(TemporalType.DATE)

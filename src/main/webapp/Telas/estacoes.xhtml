@@ -76,8 +76,20 @@
                         <b:dataTableColumn label="MAC" value="#{estacao.mac}"/>
                         <b:dataTableColumn label="Sistema" value="#{estacao.so.versao}"/>
                         <b:dataTableColumn label="Dominio" value="#{estacao.dominio}"/>
-                        <b:dataTableColumn label="Data de Cadastro" value="#{estacao.dataCadastro}"/>
-                        <b:dataTableColumn label="Data de Alteração" value="#{estacao.dataAlteracao}"/>
+
+                        <b:dataTableColumn label="Data de Cadastro">
+                            <h:outputText value="#{estacao.dataCadastro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                            </h:outputText>
+                        </b:dataTableColumn>
+
+                        <b:dataTableColumn label="Data de Alteração" >
+                            <h:outputText value="#{estacao.dataAlteracao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                            </h:outputText>
+                        </b:dataTableColumn>
+
+
                         <b:dataTableColumn label="Observação" value="#{estacao.observacao}"/>
 
 
