@@ -40,21 +40,21 @@
                     </p:commandButton>
                     <p:spacer width="5"/>
 
-                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{cargoMB.prepAlterar()}"
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{cargoMB.prepEdicao()}"
                                       styleClass="btn-warning" update="@form"
-                                      rendered="#{!cargoMB.altera}"/>
+                                      rendered="#{!cargoMB.editavel}"/>
 
 
-                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{cargoMB.cancelaAlterar()}"
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{cargoMB.cancelaEditavel()}"
                                       styleClass="btn-danger" update="@form"
-                                      rendered="#{cargoMB.altera}"/>
+                                      rendered="#{cargoMB.editavel and !cargoMB.novo}"/>
                     <p:separator/>
 
                     <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
                                  layout="grid" styleClass="ui-fluid card">
 
                         <p:outputLabel for="nome" value="Nome"/>
-                        <p:inputText id="nome" value="#{cargoMB.cargo.cargo}" required="true" disabled="#{!cargoMB.altera}" />
+                        <p:inputText id="nome" value="#{cargoMB.cargo.cargo}" required="true" disabled="#{!cargoMB.editavel}" />
                         <p:message for="nome"/>
 
 
@@ -63,7 +63,7 @@
 
                     </p:panelGrid>
                     <p:separator/>
-                    <p:commandButton value="Salvar" action="#{cargoMB.salvar}" 
+                    <p:commandButton value="Salvar" action="#{cargoMB.salvar}" disabled="#{!cargoMB.editavel}" 
                                      update="@form" icon="fa fa-check" styleClass="btn-primary"/>
                 </div>
             </div>

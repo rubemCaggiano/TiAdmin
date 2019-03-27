@@ -35,20 +35,20 @@ public class UsuarioMB implements Serializable {
     private Cargo cargo = new Cargo();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
             return;
         }
-//        if (has(id)) {
         if (id != 0) {
             usuario = usuarioDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             usuario = new Usuario();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
@@ -76,23 +76,6 @@ public class UsuarioMB implements Serializable {
 
         }
     }
-    
-    public void selecionar(Usuario u){
-        usuarioSelecionado = u;
-        System.out.println(usuarioSelecionado.getNome());
-    }
-    
-    public void deselecionar(){
-        usuarioSelecionado = new Usuario();
-    }
-
-    public void prepAlterar() {
-        altera = true;
-    }
-
-    public void cancelaAlterar() {
-        altera = false;
-    }
 
     public void excluir() throws IOException {
         String msg;
@@ -106,6 +89,23 @@ public class UsuarioMB implements Serializable {
         }
 
         addDetailMessage(msg);
+    }
+
+    public void selecionar(Usuario u) {
+        usuarioSelecionado = u;
+        System.out.println(usuarioSelecionado.getNome());
+    }
+
+    public void deselecionar() {
+        usuarioSelecionado = new Usuario();
+    }
+
+    public void prepEdicao() {
+        editavel = true;
+    }
+
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
     @PostConstruct
@@ -124,14 +124,6 @@ public class UsuarioMB implements Serializable {
         this.usuarios = usuarios;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public List<Cargo> getCargos() {
         return cargos;
     }
@@ -140,36 +132,12 @@ public class UsuarioMB implements Serializable {
         this.cargos = cargos;
     }
 
-    public Cargo getCargo() {
-        return cargo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
-    public Dao<Usuario> getUsuarioDao() {
-        return usuarioDao;
-    }
-
-    public void setUsuarioDao(Dao<Usuario> usuarioDao) {
-        this.usuarioDao = usuarioDao;
-    }
-
-    public Dao<Cargo> getCargoDao() {
-        return cargoDao;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCargoDao(Dao<Cargo> cargoDao) {
-        this.cargoDao = cargoDao;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Usuario getUsuarioSelecionado() {
@@ -180,12 +148,28 @@ public class UsuarioMB implements Serializable {
         this.usuarioSelecionado = usuarioSelecionado;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public Cargo getCargo() {
+        return cargo;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isEditavel() {
+        return editavel;
+    }
+
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

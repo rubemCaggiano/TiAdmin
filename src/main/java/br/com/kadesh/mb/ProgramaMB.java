@@ -26,7 +26,7 @@ public class ProgramaMB implements Serializable {
     private Programa programaSelecionado = new Programa();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
@@ -36,24 +36,36 @@ public class ProgramaMB implements Serializable {
 //        if (has(id)) {
         if (id != 0) {
             programa = programaDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             programa = new Programa();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                programaDao.salvar(programa);
+                Messages.addGlobalInfo("programa " + programa.getPrograma() + " Cadastrado com sucesso");
+                programa = new Programa();
+                selectAll();
 
-        try {
-            programaDao.salvar(programa);
-            Messages.addGlobalInfo("programa " + programa.getPrograma() + " Cadastrado com sucesso");
-            programa = new Programa();
-            selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+        } else {
+            try {
+                programaDao.alterar(programa);
+                Messages.addGlobalInfo("programa " + programa.getPrograma() + " Alterado com sucesso");
+                programa = new Programa();
+                selectAll();
 
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
 
     }
@@ -83,12 +95,12 @@ public class ProgramaMB implements Serializable {
         programaSelecionado = new Programa();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
 //    Getters and Setters
@@ -133,12 +145,12 @@ public class ProgramaMB implements Serializable {
         this.id = id;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

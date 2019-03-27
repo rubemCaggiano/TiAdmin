@@ -27,34 +27,45 @@ public class SoMB implements Serializable {
     private SistemaOperacional sistemaSelecionado = new SistemaOperacional();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
             return;
         }
-//        if (has(id)) {
         if (id != 0) {
             sistema = soDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             sistema = new SistemaOperacional();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                soDao.salvar(sistema);
+                Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Cadastrado com sucesso");
+                sistema = new SistemaOperacional();
+                selectAll();
 
-        try {
-            soDao.salvar(sistema);
-            Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Cadastrado com sucesso");
-            sistema = new SistemaOperacional();
-            selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+        } else {
+            try {
+                soDao.alterar(sistema);
+                Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Alterado com sucesso");
+                sistema = new SistemaOperacional();
+                selectAll();
 
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
 
     }
@@ -84,24 +95,16 @@ public class SoMB implements Serializable {
         sistemaSelecionado = new SistemaOperacional();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
 //    Getters and Setters
 //------------------------------------------------------------------------------    
-    public Dao<SistemaOperacional> getSoDao() {
-        return soDao;
-    }
-
-    public void setSoDao(Dao<SistemaOperacional> soDao) {
-        this.soDao = soDao;
-    }
-
     public List<SistemaOperacional> getSistemas() {
         return sistemas;
     }
@@ -134,12 +137,12 @@ public class SoMB implements Serializable {
         this.id = id;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

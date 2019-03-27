@@ -75,7 +75,9 @@
                         <b:dataTableColumn label="Setor" value="#{estacao.setor.setor}"/>
                         <b:dataTableColumn label="MAC" value="#{estacao.mac}"/>
                         <b:dataTableColumn label="Sistema" value="#{estacao.so.versao}"/>
-                        <b:dataTableColumn label="Dominio" value="#{estacao.dominio}"/>
+                        <b:dataTableColumn label="Dominio">
+                            <h:outputText value="#{estacao.dominio ? 'Sim' : 'Não'}"/>
+                        </b:dataTableColumn>
 
                         <b:dataTableColumn label="Data de Cadastro">
                             <h:outputText value="#{estacao.dataCadastro}">

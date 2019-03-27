@@ -40,25 +40,25 @@
                     </p:commandButton>
                     <p:spacer width="5"/>
 
-                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{programaMB.prepAlterar()}"
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{programaMB.prepEdicao()}"
                                       styleClass="btn-warning" update="@form"
-                                      rendered="#{!programaMB.altera}"/>
+                                      rendered="#{!programaMB.editavel}"/>
 
 
-                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{programaMB.cancelaAlterar()}"
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{programaMB.cancelaEdicao()}"
                                       styleClass="btn-danger" update="@form"
-                                      rendered="#{programaMB.altera}"/>
+                                      rendered="#{programaMB.editavel and !programaMB.novo}"/>
                     <p:separator/>
 
                     <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
                                  layout="grid" styleClass="ui-fluid card">
 
                         <p:outputLabel for="nome" value="Nome"/>
-                        <p:inputText id="nome" value="#{programaMB.programa.programa}" required="true" disabled="#{!programaMB.altera}" />
+                        <p:inputText id="nome" value="#{programaMB.programa.programa}" required="true" disabled="#{!programaMB.editavel}" />
                         <p:message for="nome"/>
 
                         <p:outputLabel for="fornecedor" value="Fornecedor"/>
-                        <p:inputText id="fornecedor" value="#{programaMB.programa.fornecedor}" required="true" disabled="#{!programaMB.altera}" />
+                        <p:inputText id="fornecedor" value="#{programaMB.programa.fornecedor}" required="true" disabled="#{!programaMB.editavel}" />
                         <p:message for="fornecedor"/>
 
 
@@ -67,7 +67,7 @@
 
                     </p:panelGrid>
                     <p:separator/>
-                    <p:commandButton value="Salvar" action="#{programaMB.salvar}" 
+                    <p:commandButton value="Salvar" action="#{programaMB.salvar}" disabled="#{!programaMB.editavel}"
                                      update="@form" icon="fa fa-check" styleClass="btn-primary"/>
                 </div>
             </div>

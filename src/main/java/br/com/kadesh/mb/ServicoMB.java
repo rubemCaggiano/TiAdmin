@@ -24,7 +24,7 @@ public class ServicoMB implements Serializable {
     private Servico servicoSelecionado = new Servico();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
@@ -33,24 +33,36 @@ public class ServicoMB implements Serializable {
         }
         if (id != 0) {
             servico = servicoDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             servico = new Servico();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                servicoDao.salvar(servico);
+                Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
+                servico = new Servico();
+                selectAll();
 
-        try {
-            servicoDao.salvar(servico);
-            Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
-            servico = new Servico();
-            selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+        } else {
+            try {
+                servicoDao.alterar(servico);
+                Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
+                servico = new Servico();
+                selectAll();
 
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
 
     }
@@ -80,24 +92,16 @@ public class ServicoMB implements Serializable {
         servicoSelecionado = new Servico();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
 //Getters and Setters
 //------------------------------------------------------------------------------    
-    public Dao<Servico> getServicoDao() {
-        return servicoDao;
-    }
-
-    public void setServicoDao(Dao<Servico> servicoDao) {
-        this.servicoDao = servicoDao;
-    }
-
     public List<Servico> getServicos() {
         return servicos;
     }
@@ -130,12 +134,12 @@ public class ServicoMB implements Serializable {
         this.id = id;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

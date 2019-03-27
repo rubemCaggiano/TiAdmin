@@ -28,7 +28,7 @@ public class SetorMB implements Serializable {
     private Setor setorSelecionado = new Setor();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
@@ -38,24 +38,36 @@ public class SetorMB implements Serializable {
 //        if (has(id)) {
         if (id != 0) {
             setor = setorDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             setor = new Setor();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                setorDao.salvar(setor);
+                Messages.addGlobalInfo("Setor " + setor.getSetor() + " Cadastrado com sucesso");
+                setor = new Setor();
+                selectAll();
 
-        try {
-            setorDao.salvar(setor);
-            Messages.addGlobalInfo("Setor " + setor.getSetor() + " Cadastrado com sucesso");
-            setor = new Setor();
-            selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+        } else {
+            try {
+                setorDao.alterar(setor);
+                Messages.addGlobalInfo("Setor " + setor.getSetor() + " Alterado com sucesso");
+                setor = new Setor();
+                selectAll();
 
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
 
     }
@@ -85,24 +97,16 @@ public class SetorMB implements Serializable {
         setorSelecionado = new Setor();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
 // Getters and Setters   
 //-------------------------------------------------------------------------------    
-    public Dao<Setor> getSetorDao() {
-        return setorDao;
-    }
-
-    public void setSetorDao(Dao<Setor> setorDao) {
-        this.setorDao = setorDao;
-    }
-
     public List<Setor> getSetores() {
         return setores;
     }
@@ -135,12 +139,12 @@ public class SetorMB implements Serializable {
         this.id = id;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

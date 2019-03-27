@@ -26,36 +26,45 @@ public class CargoMB implements Serializable {
     private Cargo cargoSelecionado = new Cargo();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
             return;
         }
-//        if (has(id)) {
         if (id != 0) {
             cargo = cargoDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             cargo = new Cargo();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                cargoDao.salvar(cargo);
+                Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
+                cargo = new Cargo();
+                selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
 
-        try {
-            cargoDao.salvar(cargo);
-            Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
-            cargo = new Cargo();
-            selectAll();
-
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+        } else {
+            try {
+                cargoDao.alterar(cargo);
+                Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Alterado com sucesso");
+                cargo = new Cargo();
+                selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
-
     }
 
     public void excluir() {
@@ -83,16 +92,24 @@ public class CargoMB implements Serializable {
         cargoSelecionado = new Cargo();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEditavel() {
+        editavel = false;
     }
 
 //    Getters and Setters
 //    ---------------------------------------------------------------------------
+    public Dao<Cargo> getCargoDao() {
+        return cargoDao;
+    }
+
+    public void setCargoDao(Dao<Cargo> cargoDao) {
+        this.cargoDao = cargoDao;
+    }
+
     public List<Cargo> getCargos() {
         return cargos;
     }
@@ -117,14 +134,6 @@ public class CargoMB implements Serializable {
         this.cargoSelecionado = cargoSelecionado;
     }
 
-    public Dao<Cargo> getCargoDao() {
-        return cargoDao;
-    }
-
-    public void setCargoDao(Dao<Cargo> cargoDao) {
-        this.cargoDao = cargoDao;
-    }
-
     public int getId() {
         return id;
     }
@@ -133,12 +142,12 @@ public class CargoMB implements Serializable {
         this.id = id;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public boolean isNovo() {

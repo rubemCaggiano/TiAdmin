@@ -9,7 +9,9 @@ import br.com.kadesh.model.Setor;
 import br.com.kadesh.model.SistemaOperacional;
 import br.com.kadesh.model.Usuario;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -44,34 +46,47 @@ public class EstacaoMB implements Serializable {
     private SistemaOperacional sistema = new SistemaOperacional();
 
     private int id = 0;
-    private boolean altera;
+    private boolean editavel;
     private boolean novo;
 
     public void init() {
         if (Faces.isAjaxRequest()) {
             return;
         }
-//        if (has(id)) {
         if (id != 0) {
             estacao = estacaoDao.buscarPorId(id);
+            editavel = false;
             novo = false;
         } else {
             estacao = new Estacao();
-            altera = true;
+            editavel = true;
             novo = true;
         }
     }
 
     public void salvar() {
+        if (novo) {
+            try {
+                estacao.setDataCadastro(new Date());
+                estacaoDao.salvar(estacao);
+                Messages.addGlobalInfo("Estacao " + estacao.getNome() + " Cadastrado com sucesso");
+                estacao = new Estacao();
+                selectAll();
 
-        try {
-            estacaoDao.salvar(estacao);
-            Messages.addGlobalInfo("Estacao " + estacao.getNome() + " Cadastrado com sucesso");
-            estacao = new Estacao();
-            selectAll();
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao cadastrar");
+            }
+        } else {
+            try {
+                estacao.setDataAlteracao(new Date());
+                estacaoDao.alterar(estacao);
+                Messages.addGlobalInfo("Estacao " + estacao.getNome() + " Alterado com sucesso");
+                estacao = new Estacao();
+                selectAll();
 
-        } catch (Exception e) {
-            Messages.addGlobalError("Falha ao cadastrar");
+            } catch (Exception e) {
+                Messages.addGlobalError("Falha ao alterar");
+            }
         }
 
     }
@@ -105,64 +120,16 @@ public class EstacaoMB implements Serializable {
         estacaoSelecionada = new Estacao();
     }
 
-    public void prepAlterar() {
-        altera = true;
+    public void prepEdicao() {
+        editavel = true;
     }
 
-    public void cancelaAlterar() {
-        altera = false;
+    public void cancelaEdicao() {
+        editavel = false;
     }
 
 //    Getters and Setters 
 //    ----------------------------------------------------------------------------        
-    public List<Maquina> getMaquinas() {
-        return maquinas;
-    }
-
-    public void setMaquinas(List<Maquina> maquinas) {
-        this.maquinas = maquinas;
-    }
-
-    public List<Estacao> getEstacoes() {
-        return estacoes;
-    }
-
-    public void setEstacoes(List<Estacao> estacoes) {
-        this.estacoes = estacoes;
-    }
-
-    public Estacao getEstacao() {
-        return estacao;
-    }
-
-    public void setEstacao(Estacao estacao) {
-        this.estacao = estacao;
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Estacao getEstacaoSelecionada() {
-        return estacaoSelecionada;
-    }
-
-    public void setEstacaoSelecionada(Estacao estacaoSelecionada) {
-        this.estacaoSelecionada = estacaoSelecionada;
-    }
-
     public Dao<Estacao> getEstacaoDao() {
         return estacaoDao;
     }
@@ -179,28 +146,52 @@ public class EstacaoMB implements Serializable {
         this.usuarioDao = usuarioDao;
     }
 
-    public int getId() {
-        return id;
+    public Dao<SistemaOperacional> getSoDao() {
+        return soDao;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSoDao(Dao<SistemaOperacional> soDao) {
+        this.soDao = soDao;
     }
 
-    public boolean isAltera() {
-        return altera;
+    public Dao<Setor> getSetorDao() {
+        return setorDao;
     }
 
-    public void setAltera(boolean altera) {
-        this.altera = altera;
+    public void setSetorDao(Dao<Setor> setorDao) {
+        this.setorDao = setorDao;
     }
 
-    public boolean isNovo() {
-        return novo;
+    public Dao<Programa> getProgramaDao() {
+        return programaDao;
     }
 
-    public void setNovo(boolean novo) {
-        this.novo = novo;
+    public void setProgramaDao(Dao<Programa> programaDao) {
+        this.programaDao = programaDao;
+    }
+
+    public List<Maquina> getMaquinas() {
+        return maquinas;
+    }
+
+    public void setMaquinas(List<Maquina> maquinas) {
+        this.maquinas = maquinas;
+    }
+
+    public List<Estacao> getEstacoes() {
+        return estacoes;
+    }
+
+    public void setEstacoes(List<Estacao> estacoes) {
+        this.estacoes = estacoes;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     public List<Setor> getSetores() {
@@ -227,6 +218,30 @@ public class EstacaoMB implements Serializable {
         this.programas = programas;
     }
 
+    public Estacao getEstacao() {
+        return estacao;
+    }
+
+    public void setEstacao(Estacao estacao) {
+        this.estacao = estacao;
+    }
+
+    public Estacao getEstacaoSelecionada() {
+        return estacaoSelecionada;
+    }
+
+    public void setEstacaoSelecionada(Estacao estacaoSelecionada) {
+        this.estacaoSelecionada = estacaoSelecionada;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Setor getSetor() {
         return setor;
     }
@@ -250,5 +265,30 @@ public class EstacaoMB implements Serializable {
     public void setSistema(SistemaOperacional sistema) {
         this.sistema = sistema;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isEditavel() {
+        return editavel;
+    }
+
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
+    }
+
+    public boolean isNovo() {
+        return novo;
+    }
+
+    public void setNovo(boolean novo) {
+        this.novo = novo;
+    }
+    
 
 }
