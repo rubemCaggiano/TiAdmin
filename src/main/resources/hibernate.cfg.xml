@@ -4,13 +4,13 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://mysql:3306/projetoti</property>
+        <property name="hibernate.connection.url">jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/${OPENSHIFT_APP_NAME}</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="connection.pool_size">1000</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.username">${OPENSHIFT_MYSQL_DB_USERNAME}</property>
+        <property name="hibernate.connection.password">${OPENSHIFT_MYSQL_DB_PASSWORD}</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         
         <mapping class="br.com.kadesh.model.Computador"/>
