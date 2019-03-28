@@ -22,12 +22,6 @@
 
 
 
-# Maven
-
-target/
-
-
-
 #Gradle
 
 .gradle

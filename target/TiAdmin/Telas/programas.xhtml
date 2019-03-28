@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Programas"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <h:form id="formProgramas">
+
+            <p:growl id="mensagem" showDetail="false" life="800" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="programaForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{programaMB.excluir}"
+                                             disabled="#{programaMB.programaSelecionado.id == 0}"
+                                             process="@form" update="@form">
+
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{programaMB.programaSelecionado.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
+                    </div>
+
+
+                    <b:dataTable 
+                        id="tblProgramas"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{programaMB.programas}"
+                        var="programa"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:programaMB.selecionar(programa);"
+                        ondeselect="ajax:programaMB.deselecionar();"
+                        update=":formProgramas:painelBotoes"
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
+
+                        <b:dataTableColumn label="Programa" >
+                            <p:link value="#{programa.programa}" outcome="programaForm" >
+                                <f:param name="id" value="#{programa.id}"/>	                        	
+                            </p:link>	
+                        </b:dataTableColumn>
+
+                        <b:dataTableColumn label="Fornacedor" value="#{programa.fornecedor}"/>
+                    </b:dataTable> 
+
+                </div>
+            </div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
+                <p:commandButton value="Sim" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
+                                 icon="fa fa-check"/>
+                <p:commandButton value="Não" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
+                                 icon="fa fa-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
+                  width="400" responsive="true" styleClass="box-success">
+            <p:outputLabel value="#{programaMB.programaSelecionado.programa}"/>
+        </p:dialog>
+
+        <p:dialog id="cadastro" header="Novo Programa" widgetVar="cadastro" responsive="true" modal="true" width="700px">
+            <h:form id="formPrograma">
+
+                <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6" 
+                             layout="grid" styleClass="ui-fluid card">
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" value="#{programaMB.programa.programa}" required="true" />
+                    <p:message for="nome"/>
+
+
+                </p:panelGrid>
+                <p:separator/>
+                <p:commandButton value="Salvar" action="#{programaMB.salvar}" update="@form, :formProgramas:tblProgramas"
+                                 icon="fa fa-check" styleClass="btn-primary" >
+
+                </p:commandButton>
+
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

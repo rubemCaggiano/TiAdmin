@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ul class="sidebar-menu tree" data-widget="tree">
+        <li>
+            <p:link outcome="/index" onclick="clearBreadCrumbs()">
+                <i class="fa fa-home"></i>
+                <span>Inicio</span>
+            </p:link>
+        </li>
+        <li class="header">
+            Geral
+        </li>
+        <li>
+            <p:link outcome="/Telas/estacoes">
+                <i class="fa fa-desktop"></i>
+                <span>Estações</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/estacaoForm">
+                <i class="fa fa-desktop"></i>
+                <span>Cadastrar Estação</span>
+            </p:link>
+        </li>
+
+        <li>
+            <p:link outcome="/Telas/usuarios">
+                <i class="fa fa-users"></i>
+                <span>Usuarios</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/usuarioForm">
+                <i class="fa fa-user-plus"></i>
+                <span>Cadastrar Usuario</span>
+            </p:link>
+        </li>
+        <li class="header">
+            Cadastros
+        </li>
+        <li>
+            <p:link outcome="/Telas/cargos">
+                <i class="fa fa-address-book"></i>
+                <span>Cargos</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/setores">
+                <i class="fa fa-address-book"></i>
+                <span>Setores</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/sistemas">
+                <i class="fa fa-address-book"></i>
+                <span>Sistemas Operacionais</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/servicos">
+                <i class="fa fa-address-book"></i>
+                <span>Serviços</span>
+            </p:link>
+        </li>
+        <li>
+            <p:link outcome="/Telas/programas">
+                <i class="fa fa-address-book"></i>
+                <span>Programas</span>
+            </p:link>
+        </li>
+
+
+    </ul>
+
+</ui:composition>

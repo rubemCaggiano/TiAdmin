@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Cargos"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <h:form id="formCargos">
+
+            <p:growl id="mensagem" showDetail="false" life="800" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="cargoForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{cargoMB.excluir}"
+                                             disabled="#{cargoMB.cargoSelecionado.id == 0}"
+                                             process="@form" update="@form">
+
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{cargoMB.cargoSelecionado.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
+                    </div>
+
+
+                    <b:dataTable 
+                        id="tblCargos"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{cargoMB.cargos}"
+                        var="cargo"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:cargoMB.selecionar(cargo);"
+                        ondeselect="ajax:cargoMB.deselecionar();"
+                        update=":formCargos:painelBotoes"
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
+
+                        <b:dataTableColumn label="Cargo" >
+                            <p:link value="#{cargo.cargo}" outcome="cargoForm" >
+                                <f:param name="id" value="#{cargo.id}"/>	                        	
+                            </p:link>	
+                        </b:dataTableColumn>
+
+
+
+                    </b:dataTable> 
+
+
+<!--                    <p:dataTable   id="tblCargos" widgetVar="tblCargos" var="cargo" value="#{cargoMB.cargos}"
+                                   rows="20"
+                                   selectionMode="single" selection="#{cargoMB.cargoSelecionado}"
+                                   rowKey="#{cargo.id}" lazy="true" paginator="true"
+                                   paginatorPosition="bottom" 
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                   currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                   rowsPerPageTemplate="5,10,15,20,30"
+                                   >
+                        <p:ajax event="rowSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
+                        <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
+
+                        <p:column headerText="Nome" filterBy="#{cargo.cargo}" sortBy="#{cargo.cargo}" filterMatchMode="contains">
+                            <h:link value="#{cargo.cargo}" >
+                                <f:param name="id" value="#{cargo.id}"/>	                        	
+                            </h:link>	                        
+                        </p:column>
+
+
+                    </p:dataTable>-->
+
+                </div>
+            </div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
+                <p:commandButton value="Sim" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
+                                 icon="fa fa-check"/>
+                <p:commandButton value="Não" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
+                                 icon="fa fa-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
+                  width="400" responsive="true" styleClass="box-success">
+            <p:outputLabel value="#{cargoMB.cargoSelecionado.cargo}"/>
+        </p:dialog>
+
+        <p:dialog id="cadastro" header="Novo Cargo" widgetVar="cadastro" responsive="true" modal="true" width="700px">
+            <h:form id="formCargo">
+
+                <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6" 
+                             layout="grid" styleClass="ui-fluid card">
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" value="#{cargoMB.cargo.cargo}" required="true" />
+                    <p:message for="nome"/>
+
+
+                </p:panelGrid>
+                <p:separator/>
+                <p:commandButton value="Salvar" action="#{cargoMB.salvar}" update="@form, :formCargos:tblCargos"
+                                 icon="fa fa-check" styleClass="btn-primary" >
+
+                </p:commandButton>
+
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Cadastro de Setores"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{setorMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{setorMB.init()}"/>
+          <!--<f:event type="preRenderView" listener="#{setorMB.init()}"/>-->
+        </f:metadata>
+
+        <h:form id="formSetor">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="setores?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{setorMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!setorMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{setorMB.cancelaEdicao()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{setorMB.editavel and !setorMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{setorMB.setor.setor}" required="true" disabled="#{!setorMB.editavel}" />
+                        <p:message for="nome"/>
+
+
+
+                        <p:spacer height="10px"/>
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{setorMB.salvar}" disabled="#{!setorMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

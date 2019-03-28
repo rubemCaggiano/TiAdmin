@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Cadastro de Usuário"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{usuarioMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{usuarioMB.init()}"/>
+        </f:metadata>
+
+        <h:form id="formUsuario">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="usuarios?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{usuarioMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!usuarioMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{usuarioMB.cancelaEdicao()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{usuarioMB.editavel and !usuarioMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" disabled="#{!usuarioMB.editavel}" />
+                        <p:message for="nome"/>
+
+                        <p:outputLabel for="usuarioAd" value="Usuário Dominio"/>
+                        <p:inputText id="usuarioAd" value="#{usuarioMB.usuario.usuarioAd}" required="true" disabled="#{!usuarioMB.editavel}"  />
+                        <p:message for="usuarioAd"/>
+
+                        <p:outputLabel for="email" value="Email"/>
+                        <p:inputText type="email" id="email" value="#{usuarioMB.usuario.email}" disabled="#{!usuarioMB.editavel}" />
+                        <p:message for="email"/>
+
+                        <p:outputLabel for="skype" value="Skype"/>
+                        <p:inputText type="email" id="skype" value="#{usuarioMB.usuario.skype}" disabled="#{!usuarioMB.editavel}" />
+                        <p:message for="skype"/>
+
+                        <p:outputLabel for="cargo" value="Cargo" />
+
+                        <p:selectOneMenu id="cargo" value="#{usuarioMB.usuario.cargo}" dynamic="true" converter="entityConverter" required="true" disabled="#{!usuarioMB.editavel}" >
+                            <f:selectItem itemLabel="Selecione" />
+
+                            <f:selectItems value="#{usuarioMB.cargos}"
+                                           var="cargo"
+                                           itemLabel="#{cargo.cargo}"
+                                           itemValue="#{cargo}"/>
+                        </p:selectOneMenu>
+                        <p:message for="cargo"/>
+
+                        <p:spacer height="10px"/>
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{usuarioMB.salvar}" disabled="#{!usuarioMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>
