@@ -3,7 +3,7 @@
 <hibernate-configuration>
     <session-factory>
         <!--Openshift-->
-<!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://mysql:3306/projetoti</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
