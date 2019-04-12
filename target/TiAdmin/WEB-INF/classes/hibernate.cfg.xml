@@ -38,6 +38,8 @@
         <mapping class="br.com.kadesh.model.Usuario"/>
         <mapping class="br.com.kadesh.model.Cargo"/>
         <mapping class="br.com.kadesh.model.Programa"/>
+        <mapping class="br.com.kadesh.model.Produto"/>
+        <mapping class="br.com.kadesh.model.Pedido"/>
 
         
         
