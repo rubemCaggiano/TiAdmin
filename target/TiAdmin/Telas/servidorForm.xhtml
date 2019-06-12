@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Cadastro de Servidor"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{servidorMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{servidorMB.init()}"/>
+        </f:metadata>
+
+        <h:form id="formServidor">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="servidores?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{servidorMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!servidorMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{servidorMB.cancelaEdicao()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{servidorMB.editavel and !servidorMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+
+                        <p:outputLabel for="dominio" value="Dominio?"/>
+                        <p:selectBooleanButton id="dominio" value="#{servidorMB.servidor.dominio}"  onLabel="Sim" offLabel="Não" style="width:60px" />
+                        <p:message for="dominio"/>
+
+                        <p:outputLabel for="ip" value="Endereço IP"/>
+                        <p:inputMask id="ip" value="#{servidorMB.servidor.ip}" mask="999.999.999.999" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="ip"/>
+
+                        <p:outputLabel for="mac" value="Endereço MAC"/>
+                        <p:inputMask id="mac" value="#{servidorMB.servidor.mac}" mask="**:**:**:**:**:**" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="mac"/>
+
+                        <p:outputLabel for="nome" value="Nome da Maquina"/>
+                        <p:inputText id="nome" value="#{servidorMB.servidor.nome}" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="nome"/>
+
+                        <p:outputLabel for="observacao" value="Observações"/>
+                        <p:inputText id="observacao" value="#{servidorMB.servidor.observacao}" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="observacao"/>
+
+                        <p:outputLabel  value="Sistema Operacional"/>
+                        <b:selectOneMenu id="sistema"
+                                         value="#{servidorMB.servidor.so}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!servidorMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{servidorMB.sistemas}"
+                                           var="sistema" 
+                                           itemLabel="#{sistema.versao}"
+                                           itemValue="#{sistema}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="sistema"/>
+
+
+                        <p:spacer height="10px"/>
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{servidorMB.salvar}" disabled="#{!servidorMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

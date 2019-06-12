@@ -14,6 +14,18 @@
         <property name="hibernate.connection.password">841399</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>-->
         
+        <!--SRV-009-->
+<!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://srv-009:3306/projetoti</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="connection.pool_size">1000</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>-->
+        
         <!--Local-->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>

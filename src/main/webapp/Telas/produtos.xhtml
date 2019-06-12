@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Produtos"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <h:form id="formProdutos">
+
+            <p:growl id="mensagem" showDetail="false" life="800" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <b:panel id="painelBotoes" >
+                            <p:commandButton action="produtoForm?faces-redirect=true" icon="fa fa-plus"
+                                             value="Novo" styleClass="btn-primary"/>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Excluir" icon="fa fa-trash" styleClass="btn-danger"
+                                             action="#{produtoMB.excluir}"
+                                             disabled="#{produtoMB.produtoSelecionado.id == 0}"
+                                             process="@form" update="@form">
+
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir esse registro?" icon="ui-icon-danger"/>
+                            </p:commandButton>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
+                                             disabled="#{produtoMB.produtoSelecionado.id == 0}"
+                                             oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                        </b:panel>
+                    </div>
+
+
+                    <b:dataTable 
+                        id="tblProdutos"
+                        excel="true"
+                        columnVisibility="true"
+                        print="true"
+                        value="#{produtoMB.produtos}"
+                        var="produto"
+                        select="true"
+                        selectionMode="single"
+                        onselect="ajax:produtoMB.selecionar(produto);"
+                        ondeselect="ajax:produtoMB.deselecionar();"
+                        update=":formProdutos:painelBotoes"
+                        customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        >
+
+                        <b:dataTableColumn label="Produto" >
+                            <p:link value="#{produto.produto}" outcome="produtoForm" >
+                                <f:param name="id" value="#{produto.id}"/>	                        	
+                            </p:link>	
+                        </b:dataTableColumn>
+
+
+
+                    </b:dataTable> 
+
+
+                </div>
+            </div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
+                <p:commandButton value="Sim" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
+                                 icon="fa fa-check"/>
+                <p:commandButton value="Não" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
+                                 icon="fa fa-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
+                  width="400" responsive="true" styleClass="box-success">
+            <p:outputLabel value="#{produtoMB.produtoSelecionado.produto}"/>
+        </p:dialog>
+
+        <p:dialog id="cadastro" header="Novo Produto" widgetVar="cadastro" responsive="true" modal="true" width="700px">
+            <h:form id="formProduto">
+
+                <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6" 
+                             layout="grid" styleClass="ui-fluid card">
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" value="#{produtoMB.produto.produto}" required="true" />
+                    <p:message for="nome"/>
+
+
+                </p:panelGrid>
+                <p:separator/>
+                <p:commandButton value="Salvar" action="#{produtoMB.salvar}" update="@form, :formProdutos:tblProdutos"
+                                 icon="fa fa-check" styleClass="btn-primary" >
+
+                </p:commandButton>
+
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
