@@ -52,6 +52,8 @@
         <mapping class="br.com.kadesh.model.Programa"/>
         <mapping class="br.com.kadesh.model.Produto"/>
         <mapping class="br.com.kadesh.model.Pedido"/>
+        <mapping class="br.com.kadesh.model.ModeloImpressora"/>
+        <mapping class="br.com.kadesh.model.Impressora"/>
 
         
         
