@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Cadastro de Impressora"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{impressoraMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{impressoraMB.init()}"/>
+        </f:metadata>
+
+        <h:form id="formImpressora">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="impressoras?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{impressoraMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!impressoraMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{impressoraMB.cancelaEdicao()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{impressoraMB.editavel and !impressoraMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+
+                        <p:outputLabel for="rede" value="Rede?"/>
+                        <p:selectBooleanButton id="rede" value="#{impressoraMB.impressora.rede}"  onLabel="Sim" offLabel="Não" style="width:60px" />
+                        <p:message for="rede"/>
+
+                        <p:outputLabel for="nome" value="Nome da Maquina"/>
+                        <p:inputText id="nome" value="#{impressoraMB.impressora.nome}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="nome"/>
+
+                        <p:outputLabel for="ip" value="Endereço IP"/>
+                        <p:inputText id="ip" value="#{impressoraMB.impressora.ip}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="ip"/>
+
+                        <p:outputLabel for="mac" value="Endereço MAC"/>
+                        <p:inputMask id="mac" value="#{impressoraMB.impressora.mac}" mask="**:**:**:**:**:**" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="mac"/>
+
+                        <p:outputLabel  value="Modelo"/>
+                        <b:selectOneMenu id="modelo"
+                                         value="#{impressoraMB.impressora.modelo}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!impressoraMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{impressoraMB.modelos}"
+                                           var="modelo" 
+                                           itemLabel="#{modelo.modelo}"
+                                           itemValue="#{modelo}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="modelo"/>
+
+                        <p:outputLabel for="gest" value="GEST"/>
+                        <p:inputText id="gest" value="#{impressoraMB.impressora.gest}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="gest"/>
+
+                        <p:outputLabel for="local" value="Local"/>
+                        <p:inputText id="local" value="#{impressoraMB.impressora.local}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="local"/>
+
+                        <p:outputLabel for="serial" value="Serial"/>
+                        <p:inputText id="serial" value="#{impressoraMB.impressora.serial}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="serial"/>
+
+                        <p:outputLabel for="dns" value="DNS"/>
+                        <p:inputText id="dns" value="#{impressoraMB.impressora.dns}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="dns"/>
+
+                        <p:outputLabel  value="Setor"/>
+                        <b:selectOneMenu id="setor"
+                                         value="#{impressoraMB.impressora.setor}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!impressoraMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{impressoraMB.setores}"
+                                           var="setor" 
+                                           itemLabel="#{setor.setor}"
+                                           itemValue="#{setor}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="setor"/>
+
+
+
+                        <p:outputLabel for="observacao" value="Observações"/>
+                        <p:inputText id="observacao" value="#{impressoraMB.impressora.observacao}" disabled="#{!impressoraMB.editavel}"/>
+                        <p:message for="observacao"/>
+
+
+                        <p:spacer height="10px"/>
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{impressoraMB.salvar}" disabled="#{!impressoraMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

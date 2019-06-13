@@ -15,7 +15,7 @@ public class Impressora extends Maquina {
     private String gest;
 
     private boolean rede;
-
+    
     @ManyToOne
     private Setor setor;
 

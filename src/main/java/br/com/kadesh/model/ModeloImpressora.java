@@ -17,14 +17,25 @@ public class ModeloImpressora implements Serializable {
     @SequenceGenerator(name = "seq_mod", sequenceName = "seq_mod", initialValue = 1000)
     private int id;
 
+    private String marca;
+
     private String modelo;
 
     public ModeloImpressora() {
     }
 
-    public ModeloImpressora(int id, String modelo) {
+    public ModeloImpressora(int id, String marca, String modelo) {
         this.id = id;
+        this.marca = marca;
         this.modelo = modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public int getId() {
@@ -41,6 +52,31 @@ public class ModeloImpressora implements Serializable {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloImpressora other = (ModeloImpressora) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
 }
