@@ -57,6 +57,8 @@
                         value="#{estacaoMB.estacoes}"
                         var="estacao"
                         select="true"
+                        fixedHeader="true"
+                        pageLength="50"
                         selectionMode="single"
                         onselect="ajax:estacaoMB.selecionar(estacao);"
                         ondeselect="ajax:estacaoMB.deselecionar();"

@@ -20,6 +20,7 @@
 
     <ui:define name="body">
         <h:form id="formUsuario">
+            <p:growl id="mensagem" showDetail="false" life="800" />
 
             <div id="a" class="box box-primary">
                 <div class="box-header with-border">
@@ -57,6 +58,8 @@
                         value="#{usuarioMB.usuarios}"
                         var="usuario"
                         select="true"
+                        fixedHeader="true"
+                        pageLength="50"
                         selectionMode="single"
                         onselect="ajax:usuarioMB.selecionar(usuario);"
                         ondeselect="ajax:usuarioMB.deselecionar();"

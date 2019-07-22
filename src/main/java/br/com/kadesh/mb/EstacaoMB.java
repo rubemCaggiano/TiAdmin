@@ -9,7 +9,6 @@ import br.com.kadesh.model.Setor;
 import br.com.kadesh.model.SistemaOperacional;
 import br.com.kadesh.model.Usuario;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,9 +68,11 @@ public class EstacaoMB implements Serializable {
             try {
                 estacao.setDataCadastro(new Date());
                 estacaoDao.salvar(estacao);
-                Messages.addGlobalInfo("Estacao " + estacao.getNome() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 estacao = new Estacao();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/estacoes.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
@@ -80,9 +81,11 @@ public class EstacaoMB implements Serializable {
             try {
                 estacao.setDataAlteracao(new Date());
                 estacaoDao.alterar(estacao);
-                Messages.addGlobalInfo("Estacao " + estacao.getNome() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 estacao = new Estacao();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/estacoes.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
@@ -95,7 +98,7 @@ public class EstacaoMB implements Serializable {
         try {
             estacaoDao.excluir(estacaoSelecionada);
             estacoes.remove(estacaoSelecionada);
-            Messages.addGlobalInfo("Estacao " + estacaoSelecionada.getNome() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
@@ -289,6 +292,5 @@ public class EstacaoMB implements Serializable {
     public void setNovo(boolean novo) {
         this.novo = novo;
     }
-    
 
 }

@@ -4,7 +4,6 @@ import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Cargo;
 import br.com.kadesh.model.Usuario;
-import static com.github.adminfaces.starter.util.Utils.addDetailMessage;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Faces;
-import static com.github.adminfaces.template.util.Assert.has;
 import org.omnifaces.util.Messages;
 
 @ManagedBean
@@ -57,9 +55,11 @@ public class UsuarioMB implements Serializable {
         if (novo) {
             try {
                 usuarioDao.salvar(usuario);
-                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 usuario = new Usuario();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/usuarios.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
@@ -67,9 +67,11 @@ public class UsuarioMB implements Serializable {
         } else {
             try {
                 usuarioDao.alterar(usuario);
-                Messages.addGlobalInfo("Cargo " + usuario.getNome() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 usuario = new Usuario();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/usuarios.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
@@ -78,22 +80,18 @@ public class UsuarioMB implements Serializable {
     }
 
     public void excluir() throws IOException {
-        String msg;
         try {
             usuarioDao.excluir(usuarioSelecionado);
-            msg = "Usuário " + usuarioSelecionado.getNome() + " Excluido com sucesso";
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
             usuarios.remove(usuarioSelecionado);
 
         } catch (Exception e) {
-            msg = "Falha ao excluir" + usuarioSelecionado.getNome();
+            Messages.addGlobalError("Falha ao excluir");
         }
-
-        addDetailMessage(msg);
     }
 
     public void selecionar(Usuario u) {
         usuarioSelecionado = u;
-        System.out.println(usuarioSelecionado.getNome());
     }
 
     public void deselecionar() {
