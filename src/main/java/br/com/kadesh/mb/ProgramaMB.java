@@ -49,20 +49,22 @@ public class ProgramaMB implements Serializable {
         if (novo) {
             try {
                 programaDao.salvar(programa);
-                Messages.addGlobalInfo("programa " + programa.getPrograma() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 programa = new Programa();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/programas.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
         } else {
             try {
                 programaDao.alterar(programa);
-                Messages.addGlobalInfo("programa " + programa.getPrograma() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 programa = new Programa();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/programas.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
@@ -74,7 +76,7 @@ public class ProgramaMB implements Serializable {
         try {
             programaDao.excluir(programaSelecionado);
             programas.remove(programaSelecionado);
-            Messages.addGlobalInfo("programa " + programaSelecionado.getPrograma() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

@@ -57,6 +57,8 @@
                         value="#{soMB.sistemas}"
                         var="sistema"
                         select="true"
+                        fixedHeader="true"
+                        pageLength="50"
                         selectionMode="single"
                         onselect="ajax:soMB.selecionar(sistema);"
                         ondeselect="ajax:soMB.deselecionar();"

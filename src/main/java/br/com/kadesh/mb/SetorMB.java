@@ -3,7 +3,6 @@ package br.com.kadesh.mb;
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Setor;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +50,11 @@ public class SetorMB implements Serializable {
         if (novo) {
             try {
                 setorDao.salvar(setor);
-                Messages.addGlobalInfo("Setor " + setor.getSetor() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 setor = new Setor();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/setores.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
@@ -61,9 +62,11 @@ public class SetorMB implements Serializable {
         } else {
             try {
                 setorDao.alterar(setor);
-                Messages.addGlobalInfo("Setor " + setor.getSetor() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 setor = new Setor();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/setores.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
@@ -76,7 +79,7 @@ public class SetorMB implements Serializable {
         try {
             setorDao.excluir(setorSelecionado);
             setores.remove(setorSelecionado);
-            Messages.addGlobalInfo("Cargo " + setorSelecionado.getSetor() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

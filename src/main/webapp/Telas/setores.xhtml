@@ -57,6 +57,8 @@
                         value="#{setorMB.setores}"
                         var="setor"
                         select="true"
+                        fixedHeader="true"
+                        pageLength="50"
                         selectionMode="single"
                         onselect="ajax:setorMB.selecionar(setor);"
                         ondeselect="ajax:setorMB.deselecionar();"

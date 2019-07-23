@@ -49,32 +49,33 @@ public class SoMB implements Serializable {
         if (novo) {
             try {
                 soDao.salvar(sistema);
-                Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 sistema = new SistemaOperacional();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/sistemas.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
         } else {
             try {
                 soDao.alterar(sistema);
-                Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 sistema = new SistemaOperacional();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/sistemas.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
         }
-
     }
 
     public void excluir() {
         try {
             soDao.excluir(sistemaSelecionado);
             sistemas.remove(sistemaSelecionado);
-            Messages.addGlobalInfo("Sistema Operacional " + sistema.getVersao() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

@@ -46,20 +46,22 @@ public class ServicoMB implements Serializable {
         if (novo) {
             try {
                 servicoDao.salvar(servico);
-                Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 servico = new Servico();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/servicos.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
         } else {
             try {
                 servicoDao.alterar(servico);
-                Messages.addGlobalInfo("Serviço " + servico.getServico() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 servico = new Servico();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/servicos.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
@@ -71,7 +73,7 @@ public class ServicoMB implements Serializable {
         try {
             servicoDao.excluir(servicoSelecionado);
             servicos.remove(servicoSelecionado);
-            Messages.addGlobalInfo("Serviço " + servico.getServico() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

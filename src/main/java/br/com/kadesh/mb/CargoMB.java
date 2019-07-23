@@ -48,9 +48,11 @@ public class CargoMB implements Serializable {
         if (novo) {
             try {
                 cargoDao.salvar(cargo);
-                Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 cargo = new Cargo();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/cargos.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
@@ -58,9 +60,11 @@ public class CargoMB implements Serializable {
         } else {
             try {
                 cargoDao.alterar(cargo);
-                Messages.addGlobalInfo("Cargo " + cargo.getCargo() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 cargo = new Cargo();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/cargos.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
@@ -71,7 +75,7 @@ public class CargoMB implements Serializable {
         try {
             cargoDao.excluir(cargoSelecionado);
             cargos.remove(cargoSelecionado);
-            Messages.addGlobalInfo("Cargo " + cargoSelecionado.getCargo() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
