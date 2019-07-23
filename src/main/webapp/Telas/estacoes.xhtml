@@ -21,7 +21,7 @@
 
         <h:form id="formEstacoes">
 
-            <p:growl id="mensagem" showDetail="false" life="800" />
+            <p:growl id="mensagem" showDetail="false" life="2000" />
             <div class="box box-primary">
                 <div class="box-header with-border">
 
@@ -45,6 +45,10 @@
                             <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
                                              disabled="#{estacaoMB.estacaoSelecionada.id == 0}"
                                              oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+
+                            <p:commandButton value="Programas" update="@(.ui-dialog)" styleClass="btn-warning"
+                                             disabled="#{estacaoMB.estacaoSelecionada.id == 0}"
+                                             oncomplete="PF('programas').show()" icon="fa fa-search"/>
                         </b:panel>
                     </div>
 
@@ -110,9 +114,74 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
-                  width="400" responsive="true" styleClass="box-success">
-            <p:outputLabel value="#{estacaoMB.estacaoSelecionada.nome}"/>
+        <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="450"
+                  width="600" responsive="true" styleClass="box-success">
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-fluid card">
+                <p:outputLabel value="Nome"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.nome}"/>
+                <p:outputLabel value="Utilizador"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.usuario.nome}"/>
+                <p:outputLabel value="Usuario"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.usuario.usuarioAd}"/>
+                <p:outputLabel value="Setor"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.setor.setor}"/>
+                <p:outputLabel value="MAC"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.mac}"/>
+                <p:outputLabel value="Endereço IP"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.ip}"/>
+                <p:outputLabel value="Sistema"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.so.versao}"/>
+                <p:outputLabel value="Dominio?"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.dominio}"/>
+                <p:outputLabel value="Data de Cadastro"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.dataCadastro}"/>
+                <p:outputLabel value="Data de Alteração"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.dataAlteracao}"/>
+                <p:outputLabel value="Observações"/>
+                <p:outputLabel value="#{estacaoMB.estacaoSelecionada.observacao}"/>
+            </p:panelGrid>
+        </p:dialog>
+
+
+        <p:dialog id="programas" header="Programas Instalados" widgetVar="programas" height="600"
+                  width="600" responsive="true" styleClass="box-success">
+            <h:form id="formProgramas">
+                <p:outputLabel  value="Programa"/>
+                <b:selectOneMenu id="programa"
+                                 value="#{estacaoMB.programa}" 
+                                 required="true"
+                                 select2="true"
+                                 converter="entityConverter"
+                                 >
+                    <f:selectItem itemLabel="Selecione..." />
+                    <f:selectItems value="#{estacaoMB.programas}"
+                                   var="programa" 
+                                   itemLabel="#{programa.programa}"
+                                   itemValue="#{programa}"
+                                   />
+                </b:selectOneMenu>
+
+                <p:commandButton id="btnAddPrograma" action="#{estacaoMB.adicionarPrograma}" icon="fa fa-plus" value="Adicionar" styleClass="btn-primary"
+                                 update="tblProgramas,:formProgramas:btnAddPrograma"/>
+
+
+                <b:dataTable
+                    id="tblProgramas"
+                    value="#{estacaoMB.estacaoSelecionada.programasInstalados}"
+                    var="programa"
+                    searching ="false"
+                    paginated="false"
+                    info="false"
+                    customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    >
+                    <b:dataTableColumn label="Programa" value="#{programa.programa}"/>
+
+                </b:dataTable>
+
+                <p:commandButton id="btnSalvar" action="#{estacaoMB.salvarProgramas}" icon="fa fa-check" value="Salvar" styleClass="btn-primary"
+                                 update="@form" immediate="true"/>
+
+            </h:form>
         </p:dialog>
 
 

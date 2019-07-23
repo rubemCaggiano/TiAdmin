@@ -36,6 +36,7 @@ public class EstacaoMB implements Serializable {
     private List<Setor> setores = new ArrayList<>();
     private List<SistemaOperacional> sistemas = new ArrayList<>();
     private List<Programa> programas = new ArrayList<>();
+    private List<Programa> programasInstalados = new ArrayList<>();
 
     private Estacao estacao = new Estacao();
     private Estacao estacaoSelecionada = new Estacao();
@@ -104,6 +105,18 @@ public class EstacaoMB implements Serializable {
             Messages.addGlobalError("Falha ao excluir");
         }
 
+    }
+
+    public void adicionarPrograma() {
+        estacaoSelecionada.getProgramasInstalados().add(programa);
+        System.out.println("Boi na linha");
+        programas.remove(programa);
+        programa = new Programa();
+    }
+
+    public void salvarProgramas() {
+        System.out.println("Foi");
+        estacaoDao.alterar(estacaoSelecionada);
     }
 
     @PostConstruct
@@ -291,6 +304,14 @@ public class EstacaoMB implements Serializable {
 
     public void setNovo(boolean novo) {
         this.novo = novo;
+    }
+
+    public List<Programa> getProgramasInstalados() {
+        return programasInstalados;
+    }
+
+    public void setProgramasInstalados(List<Programa> programasInstalados) {
+        this.programasInstalados = programasInstalados;
     }
 
 }
