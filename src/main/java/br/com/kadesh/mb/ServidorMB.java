@@ -57,9 +57,11 @@ public class ServidorMB {
             try {
                 servidor.setDataCadastro(new Date());
                 servidorDao.salvar(servidor);
-                Messages.addGlobalInfo("Servidor " + servidor.getNome() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 servidor = new Servidor();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/servidores.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
@@ -68,9 +70,11 @@ public class ServidorMB {
             try {
                 servidor.setDataAlteracao(new Date());
                 servidorDao.alterar(servidor);
-                Messages.addGlobalInfo("Servidor " + servidor.getNome() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 servidor = new Servidor();
                 selectAll();
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/servidores.jsf");
 
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
@@ -83,7 +87,7 @@ public class ServidorMB {
         try {
             servidorDao.excluir(servidorSelecionado);
             servidores.remove(servidorSelecionado);
-            Messages.addGlobalInfo("Servidor " + servidorSelecionado.getNome() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

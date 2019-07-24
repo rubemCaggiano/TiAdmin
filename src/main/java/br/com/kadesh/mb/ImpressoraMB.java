@@ -54,15 +54,16 @@ public class ImpressoraMB implements Serializable {
         }
     }
 
-    public String salvar() {
+    public void salvar() {
         if (novo) {
             try {
                 impressora.setDataCadastro(new Date());
                 impressoraDao.salvar(impressora);
-                Messages.addGlobalInfo("Impressora " + impressora.getNome() + " Cadastrado com sucesso");
+                Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 impressora = new Impressora();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/impressoras.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao cadastrar");
             }
@@ -70,28 +71,26 @@ public class ImpressoraMB implements Serializable {
             try {
                 impressora.setDataAlteracao(new Date());
                 impressoraDao.alterar(impressora);
-                Messages.addGlobalInfo("Impressora " + impressora.getNome() + " Alterado com sucesso");
+                Messages.addGlobalInfo("Cadastro alterado com sucesso!");
                 impressora = new Impressora();
                 selectAll();
-
+                Faces.getFlash().setKeepMessages(true);
+                Faces.redirect("/tiadmin/Telas/impressoras.jsf");
             } catch (Exception e) {
                 Messages.addGlobalError("Falha ao alterar");
             }
         }
-        return "impressoras.xhtml?faces-redirect=true";
-
     }
 
     public void excluir() {
         try {
             impressoraDao.excluir(impressoraSelecionada);
             impressoras.remove(impressoraSelecionada);
-            Messages.addGlobalInfo("Impressora " + impressoraSelecionada.getNome() + " Excluido com sucesso");
+            Messages.addGlobalInfo("Cadastro excluido com sucesso");
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");
         }
-
     }
 
     @PostConstruct
