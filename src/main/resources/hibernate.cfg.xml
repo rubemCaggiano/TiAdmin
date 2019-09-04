@@ -15,7 +15,7 @@
         <property name="hibernate.enable_lazy_load_no_trans">true</property>-->
         
         <!--SRV-009-->
-<!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://srv-009:3306/projetoti</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
@@ -37,14 +37,13 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
         
         <mapping class="br.com.kadesh.model.Computador"/>
         <mapping class="br.com.kadesh.model.Estacao"/>
         <mapping class="br.com.kadesh.model.Maquina"/>
         <mapping class="br.com.kadesh.model.Servico"/>
         <mapping class="br.com.kadesh.model.Servidor"/>
-        <mapping class="br.com.kadesh.model.ServidorFisico"/>
-        <mapping class="br.com.kadesh.model.ServidorVirtual"/>
         <mapping class="br.com.kadesh.model.Setor"/>
         <mapping class="br.com.kadesh.model.SistemaOperacional"/>
         <mapping class="br.com.kadesh.model.Usuario"/>

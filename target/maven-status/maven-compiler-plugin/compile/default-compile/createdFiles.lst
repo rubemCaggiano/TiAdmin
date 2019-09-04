@@ -31,12 +31,10 @@ br\com\kadesh\util\Teste.class
 com\github\adminfaces\starter\infra\model\Filter.class
 br\com\kadesh\mb\SoMB.class
 br\com\kadesh\dao\GenericDAO.class
-br\com\kadesh\model\ServidorFisico.class
 com\github\adminfaces\starter\infra\security\LogonMB.class
 br\com\kadesh\mb\CargoMB.class
 com\github\adminfaces\starter\bean\CarFormMB.class
 br\com\kadesh\model\EnumCondicao.class
-br\com\kadesh\model\ServidorVirtual.class
 br\com\kadesh\model\ModeloImpressora.class
 com\github\adminfaces\starter\util\Utils.class
 br\com\kadesh\model\EnumLicenca.class

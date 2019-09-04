@@ -55,20 +55,28 @@
 
 
                         <p:outputLabel for="dominio" value="Dominio?"/>
-                        <p:selectBooleanButton id="dominio" value="#{servidorMB.servidor.dominio}"  onLabel="Sim" offLabel="Não" style="width:60px" />
+                        <p:selectBooleanButton id="dominio" value="#{servidorMB.servidor.dominio}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/> 
                         <p:message for="dominio"/>
 
+                        <p:outputLabel for="fisico" value="Fisico?"/>
+                        <p:selectBooleanButton id="fisico" value="#{servidorMB.servidor.fisico}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/> 
+                        <p:message for="fisico"/>
+
+                        <p:outputLabel for="hypervisor" value="Hypervisor?"/>
+                        <p:selectBooleanButton id="hypervisor" value="#{servidorMB.servidor.hypervisor}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="hypervisor"/>
+
+                        <p:outputLabel for="nome" value="Nome da Maquina"/>
+                        <p:inputText id="nome" value="#{servidorMB.servidor.nome}" disabled="#{!servidorMB.editavel}"/>
+                        <p:message for="nome"/>
+
                         <p:outputLabel for="ip" value="Endereço IP"/>
-                        <p:inputMask id="ip" value="#{servidorMB.servidor.ip}" mask="999.999.999.999" disabled="#{!servidorMB.editavel}"/>
+                        <p:inputText id="ip" value="#{servidorMB.servidor.ip}" disabled="#{!servidorMB.editavel}"/>
                         <p:message for="ip"/>
 
                         <p:outputLabel for="mac" value="Endereço MAC"/>
                         <p:inputMask id="mac" value="#{servidorMB.servidor.mac}" mask="**:**:**:**:**:**" disabled="#{!servidorMB.editavel}"/>
                         <p:message for="mac"/>
-
-                        <p:outputLabel for="nome" value="Nome da Maquina"/>
-                        <p:inputText id="nome" value="#{servidorMB.servidor.nome}" disabled="#{!servidorMB.editavel}"/>
-                        <p:message for="nome"/>
 
                         <p:outputLabel for="observacao" value="Observações"/>
                         <p:inputText id="observacao" value="#{servidorMB.servidor.observacao}" disabled="#{!servidorMB.editavel}"/>

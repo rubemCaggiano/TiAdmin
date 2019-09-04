@@ -5,21 +5,20 @@ import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Cargo;
 import br.com.kadesh.model.Produto;
+import br.com.kadesh.model.Usuario;
+import java.util.List;
 
 
 public class Teste {
 
     public static void main(String[] args) {
 //        Dao<Cargo> cargoDao = new GenericDAO<>(Cargo.class);
-        Dao<Produto> dao = new GenericDAO<>(Produto.class);
+        Dao<Usuario> dao = new GenericDAO<>(Usuario.class);
         
-        Produto p = new Produto(0, "Teste");
-        
-//        Cargo c = new Cargo(0, "Vendedor");
-        
-//        cargoDao.salvar(c);
+        Usuario u = dao.buscarPorId(1);
+        List<Usuario> us = dao.buscarTodos(Usuario.class);
+        System.out.println(us.get(0).getNome());
 
-            dao.salvar(p);
     }
     
 }

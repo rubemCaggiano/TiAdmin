@@ -17,5 +17,5 @@ public class GeraTabelas {
         //Responsável pela criação do schema e execução
         SchemaExport export = new SchemaExport(cfg);
         export.create(true, true);
-    }
+}
 }

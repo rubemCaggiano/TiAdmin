@@ -58,17 +58,17 @@
                         <p:selectBooleanButton id="dominio" value="#{estacaoMB.estacao.dominio}"  onLabel="Sim" offLabel="Não"  style="width:60px" />
                         <p:message for="dominio"/>
 
+                        <p:outputLabel for="nome" value="Nome da Maquina"/>
+                        <p:inputText id="nome" value="#{estacaoMB.estacao.nome}" disabled="#{!estacaoMB.editavel}"/>
+                        <p:message for="nome"/>
+
                         <p:outputLabel for="ip" value="Endereço IP"/>
-                        <p:inputMask id="ip" value="#{estacaoMB.estacao.ip}" mask="999.999.999.999" disabled="#{!estacaoMB.editavel}"/>
+                        <p:inputText id="ip" value="#{estacaoMB.estacao.ip}" disabled="#{!estacaoMB.editavel}"/>
                         <p:message for="ip"/>
 
                         <p:outputLabel for="mac" value="Endereço MAC"/>
                         <p:inputMask id="mac" value="#{estacaoMB.estacao.mac}" mask="**:**:**:**:**:**" disabled="#{!estacaoMB.editavel}"/>
                         <p:message for="mac"/>
-
-                        <p:outputLabel for="nome" value="Nome da Maquina"/>
-                        <p:inputText id="nome" value="#{estacaoMB.estacao.nome}" disabled="#{!estacaoMB.editavel}"/>
-                        <p:message for="nome"/>
 
                         <p:outputLabel for="observacao" value="Observações"/>
                         <p:inputText id="observacao" value="#{estacaoMB.estacao.observacao}" disabled="#{!estacaoMB.editavel}"/>

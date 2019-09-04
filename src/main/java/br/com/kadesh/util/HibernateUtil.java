@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
  * @author nb
  */
 public class HibernateUtil {
-    
+
     private static final SessionFactory sessionFactory;
 
     static {

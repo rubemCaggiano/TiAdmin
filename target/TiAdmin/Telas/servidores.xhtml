@@ -45,6 +45,10 @@
                             <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
                                              disabled="#{servidorMB.servidorSelecionado.id == 0}"
                                              oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+
+                            <p:commandButton value="Serviços" update="@(.ui-dialog)" styleClass="btn-warning"
+                                             disabled="#{servidorMB.servidorSelecionado.id == 0}"
+                                             oncomplete="PF('servicos').show()" icon="fa fa-search"/>
                         </b:panel>
                     </div>
 
@@ -111,6 +115,48 @@
         <p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" height="250"
                   width="400" responsive="true" styleClass="box-success">
             <p:outputLabel value="#{servidorMB.servidorSelecionado.nome}"/>
+        </p:dialog>
+
+        <p:dialog id="servicos" header="Serviços" widgetVar="servicos" height="600"
+                  width="600" responsive="true" styleClass="box-success">
+            <h:form id="formServicos">
+
+                <p:outputLabel  value="Serviço"/>
+                <b:selectOneMenu id="servico"
+                                 value="#{servidorMB.servico}" 
+                                 required="true"
+                                 select2="true"
+                                 converter="entityConverter"
+                                 >
+                    <f:selectItem itemLabel="Selecione..." />
+                    <f:selectItems value="#{servidorMB.servicos}"
+                                   var="servico" 
+                                   itemLabel="#{servico.servico}"
+                                   itemValue="#{servico}"
+                                   />
+                </b:selectOneMenu>
+
+                <p:commandButton id="btnAddServico" action="#{servidorMB.adicionarServico}" icon="fa fa-plus" value="Adicionar" styleClass="btn-primary"
+                                 update="tblServicos,:formServicos:btnAddServico"/>
+
+
+                <b:dataTable
+                    id="tblServicos"
+                    value="#{servidorMB.servidorSelecionado.servicos}"
+                    var="servico"
+                    searching ="false"
+                    paginated="false"
+                    info="false"
+                    customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    >
+                    <b:dataTableColumn label="Servico" value="#{servico.servico}"/>
+
+                </b:dataTable>
+
+                <p:commandButton id="btnSalvar" action="#{servidorMB.salvarServicos}" icon="fa fa-check" value="Salvar" styleClass="btn-primary"
+                                 update="@form" immediate="true"/>
+
+            </h:form>
         </p:dialog>
 
 
