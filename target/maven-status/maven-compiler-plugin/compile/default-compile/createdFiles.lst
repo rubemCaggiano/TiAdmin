@@ -5,16 +5,13 @@ br\com\kadesh\model\Impressora.class
 br\com\kadesh\model\Programa.class
 br\com\kadesh\mb\PedidoMB.class
 br\com\kadesh\mb\EstacaoMB.class
-com\github\adminfaces\starter\bean\CarListMB$1.class
 br\com\kadesh\model\SistemaOperacional.class
 br\com\kadesh\model\Servidor.class
 br\com\kadesh\dao\Dao.class
 br\com\kadesh\util\GeraTabelas.class
 br\com\kadesh\model\Maquina.class
-com\github\adminfaces\starter\model\Car.class
 br\com\kadesh\model\Produto.class
 br\com\kadesh\model\Usuario.class
-com\github\adminfaces\starter\bean\CarListMB.class
 com\github\adminfaces\starter\infra\model\SortOrder.class
 br\com\kadesh\model\Servico.class
 br\com\kadesh\model\Cargo.class
@@ -24,7 +21,6 @@ br\com\kadesh\model\Pedido.class
 br\com\kadesh\model\Computador.class
 br\com\kadesh\model\Estacao.class
 br\com\kadesh\mb\SetorMB.class
-com\github\adminfaces\starter\service\CarService.class
 br\com\kadesh\mb\UsuarioMB.class
 com\github\adminfaces\starter\infra\converter\EntityConverter.class
 br\com\kadesh\util\Teste.class
@@ -33,10 +29,8 @@ br\com\kadesh\mb\SoMB.class
 br\com\kadesh\dao\GenericDAO.class
 com\github\adminfaces\starter\infra\security\LogonMB.class
 br\com\kadesh\mb\CargoMB.class
-com\github\adminfaces\starter\bean\CarFormMB.class
 br\com\kadesh\model\EnumCondicao.class
 br\com\kadesh\model\ModeloImpressora.class
-com\github\adminfaces\starter\util\Utils.class
 br\com\kadesh\model\EnumLicenca.class
 br\com\kadesh\mb\ServicoMB.class
 br\com\kadesh\mb\ServidorMB.class

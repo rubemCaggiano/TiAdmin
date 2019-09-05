@@ -5,7 +5,6 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\util
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\SistemaOperacional.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ProgramaMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\PedidoMB.java
-C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\bean\CarListMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\security\LogonMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Setor.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\converter\EntityConverter.java
@@ -13,7 +12,6 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\S
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Cargo.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\model\SortOrder.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Programa.java
-C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\util\Utils.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Computador.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ImpressoraMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Servico.java
@@ -22,16 +20,13 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mode
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Servidor.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\model\Filter.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\EstacaoMB.java
-C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\model\Car.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Pedido.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\EnumLicenca.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\ModeloImpressora.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Usuario.java
-C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\bean\CarFormMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\CargoMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\UsuarioMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Produto.java
-C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\service\CarService.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\dao\Dao.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ProdutoMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\EnumCondicao.java

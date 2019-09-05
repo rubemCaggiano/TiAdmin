@@ -45,10 +45,17 @@
                             <p:commandButton value="Detalhes" update="@(.ui-dialog)" styleClass="btn-info"
                                              disabled="#{servidorMB.servidorSelecionado.id == 0}"
                                              oncomplete="PF('detalhes').show()" icon="fa fa-search"/>
+                            <p:spacer width="5"/>
 
                             <p:commandButton value="Serviços" update="@(.ui-dialog)" styleClass="btn-warning"
                                              disabled="#{servidorMB.servidorSelecionado.id == 0}"
                                              oncomplete="PF('servicos').show()" icon="fa fa-search"/>
+
+                            <p:spacer width="5"/>
+
+                            <p:commandButton value="Hosts" update="@(.ui-dialog)" styleClass="btn-warning"
+                                             rendered="#{servidorMB.servidorSelecionado.hypervisor}"
+                                             oncomplete="PF('hosts').show()" icon="fa fa-search"/>
                         </b:panel>
                     </div>
 
@@ -155,6 +162,26 @@
 
                 <p:commandButton id="btnSalvar" action="#{servidorMB.salvarServicos}" icon="fa fa-check" value="Salvar" styleClass="btn-primary"
                                  update="@form" immediate="true"/>
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="hosts" header="Hosts" widgetVar="hosts" height="600"
+                  width="600" responsive="true" styleClass="box-success">
+            <h:form id="formHosts">
+
+                <b:dataTable
+                    id="tblHost"
+                    value="#{servidorMB.servidorSelecionado.vms}"
+                    var="host"
+                    searching ="false"
+                    paginated="false"
+                    info="false"
+                    customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    >
+                    <b:dataTableColumn label="Servico" value="#{host.nome}"/>
+
+                </b:dataTable>
 
             </h:form>
         </p:dialog>

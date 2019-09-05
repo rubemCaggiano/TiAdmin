@@ -54,13 +54,35 @@
                                  layout="grid" styleClass="ui-fluid card">
 
 
+                        <p:outputLabel for="fisico" value="Fisico?"/>
+                        <p:selectBooleanButton id="fisico" value="#{servidorMB.servidor.fisico}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}">
+                            <p:ajax event="change" update="@form" />
+                        </p:selectBooleanButton> 
+                        <p:message for="fisico"/>
+
                         <p:outputLabel for="dominio" value="Dominio?"/>
                         <p:selectBooleanButton id="dominio" value="#{servidorMB.servidor.dominio}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/> 
                         <p:message for="dominio"/>
 
-                        <p:outputLabel for="fisico" value="Fisico?"/>
-                        <p:selectBooleanButton id="fisico" value="#{servidorMB.servidor.fisico}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/> 
-                        <p:message for="fisico"/>
+                        <p:outputLabel value="Host" rendered="#{!servidorMB.servidor.fisico}"/>
+                        <b:selectOneMenu id="host"
+                                         value="#{servidorMB.servidor.host}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!servidorMB.editavel}"
+                                         rendered="#{!servidorMB.servidor.fisico}"
+                                         ajax="true"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{servidorMB.hypervisores}"
+                                           var="hypervisor" 
+                                           itemLabel="#{hypervisor.nome}"
+                                           itemValue="#{hypervisor}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="host" rendered="#{!servidorMB.servidor.fisico}"/>
+
 
                         <p:outputLabel for="hypervisor" value="Hypervisor?"/>
                         <p:selectBooleanButton id="hypervisor" value="#{servidorMB.servidor.hypervisor}" onLabel="Sim" offLabel="Não" style="width:60px" disabled="#{!servidorMB.editavel}"/>
