@@ -63,10 +63,10 @@ public class ServidorMB implements Serializable {
         if (novo) {
             try {
                 servidor.setDataCadastro(new Date());
-                host = servidor.getHost();
-                host.getVms().add(servidor);
+//                host = servidor.getHost();
+//                host.getVms().add(servidor);
                 servidorDao.salvar(servidor);
-                servidorDao.alterar(host);
+//                servidorDao.alterar(host);
                 Messages.addGlobalInfo("Cadastrado realizado com sucesso!");
                 servidor = new Servidor();
                 selectAll();

@@ -89,6 +89,12 @@
                         <b:dataTableColumn label="Dominio">
                             <h:outputText value="#{servidor.dominio ? 'Sim' : 'Não'}"/>
                         </b:dataTableColumn>
+                        <b:dataTableColumn label="Tipo">
+                            <h:outputText value="#{servidor.fisico ? 'Fisico' : 'Virtual'}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Virtualizador">
+                            <h:outputText value="#{servidor.hypervisor ? 'Sim' : 'Não'}"/>
+                        </b:dataTableColumn>
 
                         <b:dataTableColumn label="Data de Cadastro">
                             <h:outputText value="#{servidor.dataCadastro}">
@@ -179,7 +185,7 @@
                     info="false"
                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                     >
-                    <b:dataTableColumn label="Servico" value="#{host.nome}"/>
+                    <b:dataTableColumn label="Host" value="#{host.nome}"/>
 
                 </b:dataTable>
 
