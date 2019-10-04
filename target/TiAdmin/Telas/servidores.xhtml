@@ -167,7 +167,7 @@
                 </b:dataTable>
 
                 <p:commandButton id="btnSalvar" action="#{servidorMB.salvarServicos}" icon="fa fa-check" value="Salvar" styleClass="btn-primary"
-                                 update="@form" immediate="true"/>
+                                 update="@form" oncomplete="PF('servicos').hide()" />
 
             </h:form>
         </p:dialog>

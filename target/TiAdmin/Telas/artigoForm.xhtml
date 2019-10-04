@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Artigo"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{artigoMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{artigoMB.init()}"/>
+        </f:metadata>
+
+        <h:form id="formArtigo">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="artigos?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{artigoMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!artigoMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{artigoMB.cancelaEditavel()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{artigoMB.editavel and !artigoMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+                        <p:outputLabel for="titulo" value="Titulo"/>
+                        <p:inputText id="titulo" value="#{artigoMB.artigo.titulo}" required="true" disabled="#{!artigoMB.editavel}" />
+                        <p:message for="titulo"/>
+
+                        <p:outputLabel for="chaves" value="Palavras Chave"/>
+                        <p:inputText id="chaves" value="#{artigoMB.artigo.chaves}" required="true" disabled="#{!artigoMB.editavel}" />
+                        <p:message for="chaves"/>
+                    </p:panelGrid>
+                    <p:textEditor widgetVar="descricao" value="#{artigoMB.artigo.descricao}" height="500" style="margin-bottom:10px">
+                        <f:facet name="toolbar">
+                            <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                                <button class="ql-strike"></button>
+                                <select class="ql-font"></select>
+                                <select class="ql-size"></select>
+                            </span>
+                            <span class="ql-formats">
+                                <select class="ql-color" />
+                                <select class="ql-background" />
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-list" value="ordered" />
+                                <button class="ql-list" value="bullet" />
+                                <button class="ql-indent" value="-1" />
+                                <button class="ql-indent" value="+1" />
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-blockquote" />
+                                <button class="ql-code-block" />
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-link" />
+                                <button class="ql-image" />
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-clean" />
+                            </span>
+
+                        </f:facet>
+                    </p:textEditor>
+
+
+
+                    <p:spacer height="10px"/>
+
+
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{artigoMB.salvar}" disabled="#{!artigoMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
