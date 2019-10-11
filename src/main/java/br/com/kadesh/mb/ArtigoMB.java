@@ -3,7 +3,6 @@ package br.com.kadesh.mb;
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
 import br.com.kadesh.model.Artigo;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Backup"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-state-disabled{
+
+                opacity: 0.95 !important;
+                filter: Alpha(Opacity=95) !important;
+                cursor: default !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+            <f:viewParam name="id" value="#{backupMB.id}" converter="javax.faces.Long"/>
+            <f:viewAction action="#{backupMB.init()}"/>
+        </f:metadata>
+
+        <h:form id="formBackup">
+            <p:growl id="mensagem" showDetail="false" life="2500" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:commandButton value="Back" immediate="true"
+                                     action="backups?faces-redirect=true"
+                                     process="@this"
+                                     icon="fa fa-reply">
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+
+                    <p:commandButton  value="Editar" icon="fa fa-edit" action="#{backupMB.prepEdicao()}"
+                                      styleClass="btn-warning" update="@form"
+                                      rendered="#{!backupMB.editavel}"/>
+
+
+                    <p:commandButton  value="Cancelar" icon="fa fa-ban" action="#{backupMB.cancelaEditavel()}"
+                                      styleClass="btn-danger" update="@form"
+                                      rendered="#{backupMB.editavel and !backupMB.novo}"/>
+                    <p:separator/>
+
+                    <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
+                                 layout="grid" styleClass="ui-fluid card">
+
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{backupMB.backup.nome}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="nome"/>
+
+                        <p:outputLabel for="origem" value="Origem"/>
+                        <p:inputText id="origem" value="#{backupMB.backup.localOrigem}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="origem"/>
+
+                        <p:outputLabel for="destino" value="Destino"/>
+                        <p:inputText id="destino" value="#{backupMB.backup.localDestino}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="destino"/>
+
+                        <p:outputLabel for="observacoes" value="Observações"/>
+                        <p:inputText id="observacoes" value="#{backupMB.backup.observacoes}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="observacoes"/>
+
+                        <p:outputLabel  value="Local de Execução"/>
+                        <b:selectOneMenu id="execucao"
+                                         value="#{backupMB.backup.execucao}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!backupMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{backupMB.servidores}"
+                                           var="servidor" 
+                                           itemLabel="#{servidor.nome}"
+                                           itemValue="#{servidor}"
+                                           />
+                            <f:ajax event="change" render="servico"/>
+                        </b:selectOneMenu>
+
+                        <p:message for="execucao"/>
+
+                        <p:outputLabel  value="Serviço"/>
+                        <b:selectOneMenu id="servico"
+                                         value="#{backupMB.backup.tipoExecucao}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!backupMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{backupMB.backup.execucao.servicos}"
+                                           var="servico" 
+                                           itemLabel="#{servico.servico}"
+                                           itemValue="#{servico}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="servico"/>
+
+                        <p:outputLabel for="exclusoes" value="Exclusões"/>
+                        <p:inputText id="exclusoes" value="#{backupMB.exclusao}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="exclusoes"/>
+
+                        <p:commandButton id="btnAddExclusao" action="#{backupMB.adicionarExclusao}" icon="fa fa-plus" value="Adicionar" disabled="#{!backupMB.editavel}" styleClass="btn-primary"
+                                         update="tblExclusoes"/>
+
+                        <b:dataTable 
+                            id="tblExclusoes"
+                            excel="false"
+                            columnVisibility="false"
+                            print="false"
+                            value="#{backupMB.exclusoes}"
+                            var="exclusao"
+                            select="false"
+                            fixedHeader="true"
+                            pageLength="50"
+                            selectionMode="single"
+                            paginated="false"
+                            info="false"
+                            searching="false"
+                            customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                            >
+                            <b:dataTableColumn label="Exclusão" value="#{exclusao}"/>
+
+                        </b:dataTable>
+
+                    </p:panelGrid>
+
+
+
+
+
+                    <p:spacer height="10px"/>
+
+
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{backupMB.salvar}" disabled="#{!backupMB.editavel}"
+                                     update="@form" icon="fa fa-check" styleClass="btn-primary"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

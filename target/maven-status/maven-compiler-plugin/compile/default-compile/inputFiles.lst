@@ -4,12 +4,14 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\S
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\util\Teste.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\SistemaOperacional.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ProgramaMB.java
+C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\EnumTipoBackup.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\PedidoMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ArtigoMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\security\LogonMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Setor.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\converter\EntityConverter.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\ServicoMB.java
+C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\BackupMB.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Cargo.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\model\SortOrder.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Programa.java
@@ -22,6 +24,7 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mode
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Servidor.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\com\github\adminfaces\starter\infra\model\Filter.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mb\EstacaoMB.java
+C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Backup.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Pedido.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\EnumLicenca.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\ModeloImpressora.java
@@ -35,4 +38,5 @@ C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\mode
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Maquina.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\Estacao.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\util\GeraTabelas.java
+C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\model\AgendamentoBackup.java
 C:\Users\rubem\Desktop\Workspace Kadesh\TiAdmin\src\main\java\br\com\kadesh\util\HibernateUtil.java

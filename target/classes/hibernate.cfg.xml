@@ -54,6 +54,8 @@
         <mapping class="br.com.kadesh.model.ModeloImpressora"/>
         <mapping class="br.com.kadesh.model.Impressora"/>
         <mapping class="br.com.kadesh.model.Artigo"/>
+        <mapping class="br.com.kadesh.model.AgendamentoBackup"/>
+        <mapping class="br.com.kadesh.model.Backup"/>
         
         
     </session-factory>
