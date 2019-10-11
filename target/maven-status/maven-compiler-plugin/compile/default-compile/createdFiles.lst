@@ -10,6 +10,7 @@ br\com\kadesh\model\Servidor.class
 br\com\kadesh\dao\Dao.class
 br\com\kadesh\util\GeraTabelas.class
 br\com\kadesh\model\Maquina.class
+br\com\kadesh\model\Artigo.class
 br\com\kadesh\model\Produto.class
 br\com\kadesh\model\Usuario.class
 com\github\adminfaces\starter\infra\model\SortOrder.class
@@ -27,6 +28,7 @@ br\com\kadesh\util\Teste.class
 com\github\adminfaces\starter\infra\model\Filter.class
 br\com\kadesh\mb\SoMB.class
 br\com\kadesh\dao\GenericDAO.class
+br\com\kadesh\mb\ArtigoMB.class
 com\github\adminfaces\starter\infra\security\LogonMB.class
 br\com\kadesh\mb\CargoMB.class
 br\com\kadesh\model\EnumCondicao.class

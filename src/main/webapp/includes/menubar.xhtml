@@ -3,37 +3,151 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-     <ul class="nav navbar-nav">
-        <li>
-            <p:link outcome="/index" onclick="clearBreadCrumbs()">
-                <i class="fa fa-home"></i>
-                <span>Home</span>
-            </p:link>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cars <span
-                    class="caret"></span>
-                <i class="fa fa-car"></i>
-            </a>
+    <ul class="nav navbar-nav">
 
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Estações <span
+                    class="caret"></span>
+                <i class="fa fa-desktop"></i>
+            </a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <p:link outcome="/car-list">
-                        <span>List</span>
+                    <p:link outcome="/Telas/estacoes">
                         <i class="fa fa-th-list"></i>
+                        <span>Listar</span>
                     </p:link>
                 </li>
                 <li>
-                    <p:link outcome="/car-form">
-                        <span>New</span>
+                    <p:link outcome="/Telas/estacaoForm">
                         <i class="fa fa-plus-circle"></i>
+                        <span>Novo</span>
+                    </p:link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span
+                    class="caret"></span>
+                <i class="fa fa-users"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <p:link outcome="/Telas/usuarios">
+                        <i class="fa fa-th-list"></i>
+                        <span>Listar</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/usuarioForm">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Novo</span>
+                    </p:link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servidores <span
+                    class="caret"></span>
+                <i class="fa fa-server"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <p:link outcome="/Telas/servidores">
+                        <i class="fa fa-th-list"></i>
+                        <span>Listar</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/servidorForm">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Novo</span>
+                    </p:link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Impressoras <span
+                    class="caret"></span>
+                <i class="fa fa-print"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <p:link outcome="/Telas/impressoras">
+                        <i class="fa fa-th-list"></i>
+                        <span>Listar</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/impressoraForm">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Nova</span>
+                    </p:link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentação <span
+                    class="caret"></span>
+                <i class="fa fa-paste"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <p:link outcome="/Telas/artigos">
+                        <i class="fa fa-file"></i>
+                        <span>Artigos</span>
                     </p:link>
                 </li>
 
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros <span
+                    class="caret"></span>
+                <i class="fa fa-address-book"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+
+                <li>
+                    <p:link outcome="/Telas/cargos">
+                        <i class="fa fa-address-book"></i>
+                        <span>Cargos</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/setores">
+                        <i class="fa fa-address-book"></i>
+                        <span>Setores</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/sistemas">
+                        <i class="fa fa-address-book"></i>
+                        <span>Sistemas Operacionais</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/servicos">
+                        <i class="fa fa-address-book"></i>
+                        <span>Serviços</span>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/Telas/programas">
+                        <i class="fa fa-address-book"></i>
+                        <span>Programas</span>
+                    </p:link>
+                </li>
 
             </ul>
-
         </li>
+
+
+
     </ul>
 
 </ui:composition>
