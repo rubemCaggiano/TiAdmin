@@ -50,6 +50,7 @@
                                       rendered="#{backupMB.editavel and !backupMB.novo}"/>
                     <p:separator/>
 
+                    <p:panelGrid columns="2" layout="grid"></p:panelGrid>
                     <p:panelGrid columns="3" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-3" 
                                  layout="grid" styleClass="ui-fluid card">
 
@@ -131,6 +132,42 @@
                             <b:dataTableColumn label="Exclusão" value="#{exclusao}"/>
 
                         </b:dataTable>
+                        <p:message for="tblExclusoes"/>
+
+
+                        <p:outputLabel for="frequencia" value="Frequencia"/>
+                        <p:inputText id="frequencia" value="#{backupMB.agendamentoBackup.frequencia}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="frequencia"/>
+
+                        <p:outputLabel for="qtdeCopias" value="Côpias a manter"/>
+                        <p:inputText id="qtdeCopias" value="#{backupMB.agendamentoBackup.qtdeCopias}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="qtdeCopias"/>
+
+                        <p:outputLabel for="tamanho" value="Tamanho"/>
+                        <p:inputText id="tamanho" value="#{backupMB.agendamentoBackup.tamanho}" required="true" disabled="#{!backupMB.editavel}" />
+                        <p:message for="tamanho"/>
+
+                        <p:outputLabel  value="Tipo do Backup"/>
+                        <b:selectOneMenu id="tipo"
+                                         value="#{backupMB.agendamentoBackup.tipo}" 
+                                         required="true"
+                                         select2="true"
+                                         converter="entityConverter"
+                                         disabled="#{!backupMB.editavel}"
+                                         >
+                            <f:selectItem itemLabel="Selecione..." />
+                            <f:selectItems value="#{backupMB.tipos}"
+                                           var="tipo" 
+                                           itemLabel="#{tipo.tipoBackup}"
+                                           itemValue="#{tipo}"
+                                           />
+                        </b:selectOneMenu>
+                        <p:message for="tipo"/>
+
+                        <p:outputLabel for="horario" value="Horario" />
+                        <p:datePicker id="horario" value="#{backupMB.agendamentoBackup.horario}" timeOnly="true" pattern="HH:mm"/>
+                        <p:message for="horario"/>
+
 
                     </p:panelGrid>
 

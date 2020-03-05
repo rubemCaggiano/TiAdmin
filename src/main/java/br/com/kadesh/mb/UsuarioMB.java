@@ -6,11 +6,14 @@ import br.com.kadesh.model.Cargo;
 import br.com.kadesh.model.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.hibernate.exception.ConstraintViolationException;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
@@ -79,11 +82,10 @@ public class UsuarioMB implements Serializable {
         }
     }
 
-    public void excluir() throws IOException {
+    public void excluir() {
         try {
             usuarioDao.excluir(usuarioSelecionado);
             Messages.addGlobalInfo("Cadastro excluido com sucesso");
-            usuarios.remove(usuarioSelecionado);
 
         } catch (Exception e) {
             Messages.addGlobalError("Falha ao excluir");

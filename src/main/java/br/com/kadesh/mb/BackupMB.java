@@ -2,10 +2,13 @@ package br.com.kadesh.mb;
 
 import br.com.kadesh.dao.Dao;
 import br.com.kadesh.dao.GenericDAO;
+import br.com.kadesh.model.AgendamentoBackup;
 import br.com.kadesh.model.Backup;
+import br.com.kadesh.model.EnumTipoBackup;
 import br.com.kadesh.model.Servidor;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -25,11 +28,13 @@ public class BackupMB implements Serializable {
     private List<Servidor> servidores = new ArrayList<>();
     private List<Backup> backups = new ArrayList<>();
     private List<String> exclusoes = new ArrayList<>();
+    private List<EnumTipoBackup> tipos = Arrays.asList(EnumTipoBackup.values());
 
     private Backup backup = new Backup();
     private Backup backupSelecionado = new Backup();
     private Servidor servidor = new Servidor();
     private String exclusao;
+    private AgendamentoBackup agendamentoBackup;
 
     private int id = 0;
     private boolean editavel;
@@ -41,6 +46,7 @@ public class BackupMB implements Serializable {
         }
         if (id != 0) {
             backup = backupDao.buscarPorId(id);
+            exclusoes = backup.getExclusoes();
             editavel = false;
             novo = false;
         } else {
@@ -51,7 +57,10 @@ public class BackupMB implements Serializable {
     }
 
     public void adicionarExclusao() {
+        exclusoes = backup.getExclusoes();
         exclusoes.add(exclusao);
+        //        backup.setExclusoes(exclusoes);
+        ;
     }
 
     public void salvar() {
@@ -194,6 +203,22 @@ public class BackupMB implements Serializable {
 
     public void setExclusoes(List<String> exclusoes) {
         this.exclusoes = exclusoes;
+    }
+
+    public AgendamentoBackup getAgendamentoBackup() {
+        return agendamentoBackup;
+    }
+
+    public void setAgendamentoBackup(AgendamentoBackup agendamentoBackup) {
+        this.agendamentoBackup = agendamentoBackup;
+    }
+
+    public List<EnumTipoBackup> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<EnumTipoBackup> tipos) {
+        this.tipos = tipos;
     }
 
 }

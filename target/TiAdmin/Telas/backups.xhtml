@@ -71,8 +71,8 @@
                             </p:link>	
                         </b:dataTableColumn>
 
-                        <b:dataTableColumn label="Execução" value="#{backup.execucao}"/>
-                        <b:dataTableColumn label="Serviço" value="#{backup.tipoExecucao}"/>
+                        <b:dataTableColumn label="Execução" value="#{backup.execucao.nome}"/>
+                        <b:dataTableColumn label="Serviço" value="#{backup.tipoExecucao.servico}"/>
                         <b:dataTableColumn label="Observações" value="#{backup.observacoes}"/>
 
                     </b:dataTable> 

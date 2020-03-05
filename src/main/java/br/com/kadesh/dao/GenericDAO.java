@@ -3,6 +3,7 @@ package br.com.kadesh.dao;
 import br.com.kadesh.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -29,7 +30,7 @@ public class GenericDAO<T> implements Dao<T> {
     }
 
     @Override
-    public void salvar(T t) {
+    public void salvar(T t) throws HibernateException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -58,10 +59,11 @@ public class GenericDAO<T> implements Dao<T> {
         session.beginTransaction();
 
         session.delete(t);
-
         session.getTransaction().commit();
+
         session.clear();
         session.close();
+
     }
 
     @Override

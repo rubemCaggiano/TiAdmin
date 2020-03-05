@@ -18,6 +18,8 @@ public class Teste {
         Usuario u = dao.buscarPorId(1);
         List<Usuario> us = dao.buscarTodos(Usuario.class);
         System.out.println(us.get(0).getNome());
+        
+        
 
     }
     
