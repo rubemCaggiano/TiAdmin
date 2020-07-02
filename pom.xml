@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
-            <version>6.1.1</version>
+            <version>8.0.2</version>
             <!-- only for gravatar, adminfaces doesn't depend on extensions-->
         </dependency>
         <dependency>
